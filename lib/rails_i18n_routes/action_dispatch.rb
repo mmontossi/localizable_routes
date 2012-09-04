@@ -15,7 +15,7 @@ module RailsI18nRoutes
         @locales = nil # Needed to routes below localize block to work
       end
       
-      def add_route(action, options) # :nodoc:
+      def add_route(action, options)
         if @locales
           @set.named_routes.define_i18n_route_helper options[:as] if options[:as]
           @locales.each do |locale|
@@ -51,8 +51,8 @@ module RailsI18nRoutes
             remove_possible_method :#{selector}
             def #{selector}(*args)
               options = args.extract_options!
-              lang = options[:locale] ? options[:locale] : I18n.locale
-              send ("#{name}_" + lang.to_s + "_#{kind}"), options
+              locale = options[:locale] ? options[:locale] : I18n.locale
+              send ("#{name}_" + locale.to_s + "_#{kind}"), options
             end
           END_EVAL
             
