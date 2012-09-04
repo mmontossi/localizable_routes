@@ -7,8 +7,8 @@ module RailsI18nRoutes
       end
       
       def select_locale
-        if Rails.application.i18n_routes.selection == :subdomain
-          Rails.application.i18n_routes.mapping.each_pair do |key, value|
+        if Rails.application.config.i18n_routes.selection == :subdomain
+          Rails.application.config.i18n_routes.mapping.each_pair do |key, value|
             if value.include? request.subdomain
               I18n.locale = "#{key}_#{request.subdomain}" 
               break
