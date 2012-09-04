@@ -6,8 +6,8 @@ module RailsI18nRoutes
         @locales = I18n.available_locales
         case Rails.application.config.i18n_routes.selection
         when :prefix
-          scope ':locale', :locale => I18n.available_locales do
-             yield
+          scope ':locale', :locale => Regex.new("/#{I18n.available_locales.join('|')}/") do
+            yield
           end
         when :subdomain
           yield
