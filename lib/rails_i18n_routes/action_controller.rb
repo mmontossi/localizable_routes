@@ -3,7 +3,7 @@ module RailsI18nRoutes
     module BaseMethods
       
       def self.included(base)
-        base.send :prepend_before_filter :select_locale
+        base.send :prepend_before_filter, :select_locale
       end
       
       def select_locale
