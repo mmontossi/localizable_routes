@@ -56,7 +56,7 @@ module RailsI18nRoutes
             def #{selector}(*args)
               options = args.extract_options!
               if Rails.application.config.i18n_routes.selection == :subdomain
-                suffix = request.subdomain
+                suffix = (options[:subdomain] ? options[:subdomain] : request.subdomain)
               else
                 suffix = (options[:locale] ? options[:locale] : I18n.locale)
               end
