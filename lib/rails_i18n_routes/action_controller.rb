@@ -14,11 +14,9 @@ module RailsI18nRoutes
               break
             end
           end
-        else
-          unless params[:locale].nil?
-            I18n.locale = params[:locale]
-          end
-        end        
+        elsif not params[:locale].nil?
+          I18n.locale = params[:locale] 
+        end       
       end
       
     end

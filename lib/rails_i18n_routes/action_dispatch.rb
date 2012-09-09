@@ -3,13 +3,14 @@ module RailsI18nRoutes
     module MapperMethods
     
       def localize
-        @locales = I18n.available_locales
+        @locales = I18n.available_locales.dup
         case Rails.application.config.i18n_routes.selection
         when :prefix
           scope ':locale' do
             yield
           end
         when :subdomain
+          @locales.shift # For some reason :en is always there
           yield
         end    
         @locales = nil # Needed to routes below localize block to work
@@ -26,14 +27,17 @@ module RailsI18nRoutes
             end
             constraints = {}
             if Rails.application.config.i18n_routes.selection == :subdomain
-              constraints[:subdomain] = Rails.application.config.i18n_routes.mapping[locale]
-            else
-              constraints[:locale] = locale              
+              subdomain = locale.to_s.split('_')[1].to_sym
+              super(i18n_path.join('/'), options.merge(
+                :constraints => {:subdomain => subdomain},
+                :as => (options[:as] ? "#{options[:as]}_#{subdomain}" : nil)            
+              ))                
+            else    
+              super(i18n_path.join('/'), options.merge(
+                :constraints => {:locale => locale},
+                :as => (options[:as] ? "#{options[:as]}_#{locale}" : nil)            
+              ))                       
             end
-            super(i18n_path.join('/'), options.merge(
-              :constraints => constraints,
-              :as => (options[:as] ? "#{options[:as]}_#{locale}" : nil)            
-            ))
           end
           return
         end
@@ -51,8 +55,12 @@ module RailsI18nRoutes
             remove_possible_method :#{selector}
             def #{selector}(*args)
               options = args.extract_options!
-              locale = options[:locale] ? options[:locale] : I18n.locale
-              send ("#{name}_" + locale.to_s + "_#{kind}"), options
+              if Rails.application.config.i18n_routes.selection == :subdomain
+                suffix = request.subdomain
+              else
+                suffix = (options[:locale] ? options[:locale] : I18n.locale)
+              end
+              send ("#{name}_" + suffix + "_#{kind}"), options
             end
           END_EVAL
             
