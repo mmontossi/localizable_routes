@@ -1,3 +1,35 @@
-= RailsI18nRoutes
+= Rails I18n Routes
 
-This project rocks and uses MIT-LICENSE.
+Adds handy methods to ActionDispatch to deal with translations.
+
+= Install
+
+Put this line in your Gemfile:
+  gem 'rails-i18n-routes', :git => 'git@github.com:mattways/rails-i18n-routes.git'
+  
+Then bundle:
+  $ bundle  
+  
+= Usage
+
+Choose how the language would be selected in your application.rb...
+
+To use prefix (default):
+  config.i18n_routes.selection = :prefix
+
+To use subdomain:
+  config.i18n_routes.selection = :subdomain
+  config.i18n_routes.mapping = {
+    :es => [:ar, :uy]
+    :pt => [:br]
+  }
+
+In the case of subdomains you need to name the yml file in your locales dir using this format:
+  es_uy.yml
+  es_ar.yml
+  pt_br.yml
+  
+Finally in your routes.rb pass the routes you want to be localized to localize method:
+  localize do
+    math 'contact' => 'static#contact', :as => 'contact'
+  end
