@@ -18,33 +18,49 @@ module RailsI18nRoutes
       
       def add_route(action, options)
         if @locales
-          @locales.each do |locale|
-            i18n_path = [] 
-            action.split('/').each do |part|
-              part.gsub!(/-/, '_')
-              i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part))
-            end
+          @locales.each do |locale|          
+
+            scope = i18n_path(@scope[:path], locale)
+            @scope[:path] = scope.join('/')
+            
+            path = i18n_path(action, locale)
             constraints = {}
+    
             if Rails.application.config.i18n_routes.selection == :subdomain
               subdomain = locale.to_s.split('_')[1].to_sym
-              super(i18n_path.join('/'), options.merge(
+              super(path.join('/'), options.merge(
                 :constraints => {:subdomain => subdomain},
                 :as => (options[:as] ? "#{options[:as]}_#{subdomain}" : nil)            
               ))                
             else    
-              super(i18n_path.join('/'), options.merge(
+              super(path.join('/'), options.merge(
                 :constraints => {:locale => locale},
                 :as => (options[:as] ? "#{options[:as]}_#{locale}" : nil)            
               ))                       
             end
+
           end
+
           helper_name = options[:as]
           helper_name = "#{@scope[:as]}_#{helper_name}" if @scope[:as]
           @set.named_routes.define_i18n_route_helper helper_name
+
           return
         end
         super      
       end     
+      
+      protected
+      
+      def i18n_path(path, locale)
+        i18n_path = [] 
+        path.split('/').each do |part|
+          next if part == ''
+          part.gsub!(/-/, '_')
+          i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part))
+        end  
+        i18n_path    
+      end
     
     end
     module NamedRouteCollectionMethods

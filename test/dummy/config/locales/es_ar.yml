@@ -1,2 +1,4 @@
 es_ar:
-  nothing: ''
+  routes:
+    ns1: "nombre1"
+    ns2: "nombre2"
