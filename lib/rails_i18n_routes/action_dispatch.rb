@@ -18,7 +18,6 @@ module RailsI18nRoutes
       
       def add_route(action, options)
         if @locales
-          @set.named_routes.define_i18n_route_helper options[:as] if options[:as]
           @locales.each do |locale|
             i18n_path = [] 
             action.split('/').each do |part|
@@ -39,6 +38,9 @@ module RailsI18nRoutes
               ))                       
             end
           end
+          helper_name = options[:as]
+          helper_name = "#{@scope[:as]}_#{helper_name}" if @scope[:as]
+          @set.named_routes.define_i18n_route_helper helper_name
           return
         end
         super      

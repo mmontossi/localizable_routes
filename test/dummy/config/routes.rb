@@ -1,8 +1,10 @@
 Dummy::Application.routes.draw do
   
   localize do
-    namespace :something do
-      match 'dummy' => 'application#dummy', :as => :contact
+    namespace :ns1 do
+      namespace :ns2 do
+        match 'dummy' => 'application#dummy', :as => :contact
+      end
     end    
   end 
   
