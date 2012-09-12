@@ -20,8 +20,10 @@ module RailsI18nRoutes
         if @locales
           @locales.each do |locale|          
 
-            scope = i18n_path(@scope[:path], locale)
-            @scope[:path] = scope.join('/')
+            if @scope[:path]
+              scope = i18n_path(@scope[:path], locale)
+              @scope[:path] = scope.join('/')
+            end
             
             path = i18n_path(action, locale)
             constraints = {}
