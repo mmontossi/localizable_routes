@@ -1,2 +1,4 @@
 es_uy:
-  nothing: ''  
+  routes:
+    ns1: "nombre1"
+    ns2: "nombre2"

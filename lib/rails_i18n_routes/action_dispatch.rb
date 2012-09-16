@@ -10,7 +10,7 @@ module RailsI18nRoutes
             yield
           end
         when :subdomain
-          @locales.shift # For some reason :en is always there
+          @locales.shift # For some reason :en is always there          
           yield
         end    
         @locales = nil # Needed to routes below localize block to work
@@ -29,7 +29,7 @@ module RailsI18nRoutes
             constraints = {}
     
             if Rails.application.config.i18n_routes.selection == :subdomain
-              subdomain = locale.to_s.split('_')[1].to_sym
+              subdomain = locale.to_s.split('_')[1]
               super(path.join('/'), options.merge(
                 :constraints => {:subdomain => subdomain},
                 :as => (options[:as] ? "#{options[:as]}_#{subdomain}" : nil)            
