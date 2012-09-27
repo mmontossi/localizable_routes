@@ -29,7 +29,7 @@ module RailsI18nRoutes
             constraints = {}
     
             if Rails.application.config.i18n_routes.selection == :subdomain
-              subdomain = locale.to_s.split('_')[1]
+              subdomain = locale.to_s.split('-')[1].downcase
               super(path.join('/'), options.merge(
                 :constraints => {:subdomain => subdomain},
                 :as => (options[:as] ? "#{options[:as]}_#{subdomain}" : nil)            
