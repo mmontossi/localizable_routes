@@ -12,7 +12,7 @@ module RailsI18nRoutes
         if Rails.application.config.i18n_routes.selection == :subdomain
           Rails.application.config.i18n_routes.mapping.each_pair do |key, value|
             if value.include? request.subdomain.to_sym
-              I18n.locale = "#{key}-#{request.subdomain.uppercase}" 
+              I18n.locale = "#{key}-#{request.subdomain.upcase}" 
               break
             end
           end
