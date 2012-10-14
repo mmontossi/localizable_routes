@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["contact@mattways.com"]
   s.homepage    = "https://github.com/mattways/rails-i18n-routes"
   s.summary     = "Toolkit for Rails i18n routes."
-  s.description = "Adds handy methods to ActionDispatch to deal with translations."
+  s.description = "Minimalistic toolkit to handle i18n routes and detect locale from subdomain or prefix."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
