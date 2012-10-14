@@ -1,6 +1,6 @@
 = Rails I18n Routes
 
-Adds handy methods to ActionDispatch to deal with translations.
+Minimalistic toolkit to handle i18n routes and detect locale from subdomain or prefix.
 
 = Install
 
