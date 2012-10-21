@@ -5,7 +5,7 @@ Minimalistic toolkit to handle i18n routes and detect locale from subdomain or p
 = Install
 
 Put this line in your Gemfile:
-  gem 'rails-i18n-routes', :git => 'git@github.com:mattways/rails-i18n-routes.git'
+  gem 'rails-i18n-routes'
   
 Then bundle:
   $ bundle  
@@ -28,6 +28,15 @@ In the case of subdomains you need to name the yml file in your locales dir usin
   es-UY.yml
   es-AR.yml
   pt-BR.yml
+  
+Inside each yaml file:
+  es-UY:
+    routes:
+      users: "usuarios"
+      profile: "perfil"
+      login: "entrar"
+      
+(Please note each part of the path it's translated individually, you don't have to put translations for paths like "users/1/profile" just translate "users" and "profile", the plugin will do the rest)
   
 Finally in your routes.rb pass the routes you want to be localized to localize method:
   localize do
