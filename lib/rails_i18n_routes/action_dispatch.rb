@@ -80,7 +80,7 @@ module RailsI18nRoutes
               else
                 suffix = (options[:locale] ? options[:locale] : I18n.locale)
               end
-              send ("#{name}_" + suffix + "_#{kind}"), *(args << options)
+              send ("#{name}_#{suffix}_#{kind}"), *(args << options)
             end
           END_EVAL
             
