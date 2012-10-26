@@ -78,8 +78,7 @@ module RailsI18nRoutes
               if Rails.application.config.i18n_routes.selection == :subdomain
                 suffix = (options[:subdomain] ? options[:subdomain] : request.subdomain)
               else
-                options[:locale] = I18n.locale unless options[:locale]
-                suffix = options[:locale]
+                suffix = (options[:locale] ? options[:locale] : I18n.locale)
               end
               send ("#{name}_" + suffix.to_s + "_#{kind}"), *(args << options)
             end
