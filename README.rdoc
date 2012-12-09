@@ -1,3 +1,5 @@
+{<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/mattways/rails-i18n-routes] {<img src="https://secure.travis-ci.org/mattways/rails-i18n-routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/mattways/rails-i18n-routes] {<img src="https://gemnasium.com/mattways/rails-i18n-routes.png" alt="Dependency Status" />}[https://gemnasium.com/mattways/rails-i18n-routes]
+
 = Rails I18n Routes
 
 Minimalistic toolkit to handle i18n routes and detect locale from subdomain or prefix.

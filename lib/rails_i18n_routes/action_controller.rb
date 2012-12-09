@@ -23,9 +23,7 @@ module RailsI18nRoutes
       
       def subdomains
         @subdomains ||= begin
-          subdomains = []
-          Rails.application.config.i18n_routes.mapping.each_value{|v| subdomains.concat v}
-          subdomains
+          Rails.application.config.i18n_routes.mapping.values.map { |v| subdomains.concat v }
         end
       end
       
