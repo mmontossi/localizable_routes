@@ -19,40 +19,25 @@ module RailsI18nRoutes
       def add_route(action, options)
         if @locales
           @locales.each do |locale|          
-
-            if @scope[:path]
-              scope = i18n_path(@scope[:path], locale)
-              @scope[:path] = scope.join('/')
-            end
-            
-            path = i18n_path(action, locale)
-            constraints = {}
-    
-            if Rails.application.config.i18n_routes.selection == :subdomain
-              subdomain = locale.to_s.split('-')[1].downcase
-              super(path.join('/'), options.merge(
-                :constraints => {:subdomain => subdomain},
-                :as => (options[:as] ? "#{options[:as]}_#{subdomain}" : nil)            
-              ))                
-            else    
-              super(path.join('/'), options.merge(
-                :constraints => {:locale => locale},
-                :as => (options[:as] ? "#{options[:as]}_#{locale}" : nil)            
-              ))                       
-            end
-
+            @scope[:path] = i18n_path(@scope[:path], locale) if @scope[:path]
+            super(*[i18n_path(action, locale), i18n_options(options, locale)])
           end
-
-          helper_name = options[:as]
-          helper_name = "#{@scope[:as]}_#{helper_name}" if @scope[:as]
-          @set.named_routes.define_i18n_route_helper helper_name
-
+          @set.named_routes.define_i18n_route_helper @scope[:as] ? "#{@scope[:as]}_#{options[:as]}" : options[:as] 
           return
         end
         super      
       end     
       
       protected
+
+      def i18n_options(options, locale)
+        selection = Rails.application.config.i18n_routes.selection  
+        subdomain = locale.to_s.split('-')[1].downcase if selection == :subdomain
+        options.merge(
+          :constraints => selection == :locale ? {:locale => locale} : {:subdomain => subdomain},
+          :as => options[:as] ? "#{options[:as]}_#{selection == :locale ? locale : subdomain}" : nil 
+        )
+      end
       
       def i18n_path(path, locale)
         i18n_path = [] 
@@ -61,7 +46,7 @@ module RailsI18nRoutes
           part.gsub!(/-/, '_')
           i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part))
         end  
-        i18n_path    
+        i18n_path.join('/')
       end
     
     end
@@ -70,7 +55,6 @@ module RailsI18nRoutes
       def define_i18n_route_helper(name)
         ['url', 'path'].each do |kind|
           selector = url_helper_name(name, kind)
-        
           @module.module_eval <<-END_EVAL, __FILE__, __LINE__ + 1
             remove_possible_method :#{selector}
             def #{selector}(*args)
@@ -83,7 +67,6 @@ module RailsI18nRoutes
               send ("#{name}_" + suffix.to_s + "_#{kind}"), *(args << options)
             end
           END_EVAL
-            
           helpers << selector
         end                
       end    
