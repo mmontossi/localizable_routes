@@ -1,4 +1,5 @@
 es-UY:
   routes:
-    ns1: "nombre1"
-    ns2: "nombre2"
+    namespace: "nombre-de-espacio"
+    nested: "anidada"
+    simple: "simple"

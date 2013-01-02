@@ -27,8 +27,8 @@ module Dummy
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :es_uy
-    config.i18n.locale = :es_uy
+    config.i18n.default_locale = 'es-UY'
+    config.i18n.locale = 'es-UY'
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -58,7 +58,7 @@ module Dummy
       
     config.i18n_routes.selection = :subdomain
     config.i18n_routes.mapping = {
-      :pr => :br,
+      :en => :us,
       :es => [:uy, :ar]    
     }  
     

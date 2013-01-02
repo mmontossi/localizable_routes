@@ -11,7 +11,7 @@ module RailsI18nRoutes
       def select_locale
         if Rails.application.config.i18n_routes.selection == :subdomain
           Rails.application.config.i18n_routes.mapping.each_pair do |key, value|
-            if value.include? request.subdomain.to_sym
+            if (value.is_a? Array and value.include? request.subdomain.to_sym) or value == request.subdomain.to_sym
               I18n.locale = "#{key}-#{request.subdomain.upcase}" 
               break
             end
@@ -23,7 +23,12 @@ module RailsI18nRoutes
       
       def subdomains
         @subdomains ||= begin
-          Rails.application.config.i18n_routes.mapping.values.map { |v| subdomains.concat v }
+          values = []
+          Rails.application.config.i18n_routes.mapping.values.each do |value|
+            value = [value] unless value.is_a? Array
+            values.concat value
+          end
+          values
         end
       end
       

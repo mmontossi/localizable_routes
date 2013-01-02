@@ -44,7 +44,7 @@ module RailsI18nRoutes
         path.split('/').each do |part|
           next if part == ''
           part.gsub!(/-/, '_')
-          i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part))
+          i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part.gsub(/_/, '-')))
         end  
         i18n_path.join('/')
       end

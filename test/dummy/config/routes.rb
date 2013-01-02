@@ -1,13 +1,12 @@
 Dummy::Application.routes.draw do
   
   localize do
-    namespace :ns1 do
-      namespace :ns2 do
-        match 'dummy' => 'application#dummy', :as => :contact
-      end
-    end    
+    namespace :namespace do
+      match 'nested' => 'nested#nested', :as => :nested
+    end
+    match 'simple' => 'simple#simple', :as => :simple
   end 
-  
+    
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -1,0 +1,5 @@
+en-US:
+  routes:
+    namespace: "namespace"
+    nested: "nested"
+    simple: "simple"
