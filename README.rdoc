@@ -1,3 +1,5 @@
+=== NOTE: The localize method has been changed from localize to localized in version 1.1.2
+
 {<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/mattways/rails-i18n-routes] {<img src="https://secure.travis-ci.org/mattways/rails-i18n-routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/mattways/rails-i18n-routes] {<img src="https://gemnasium.com/mattways/rails-i18n-routes.png" alt="Dependency Status" />}[https://gemnasium.com/mattways/rails-i18n-routes]
 
 = Rails I18n Routes
@@ -45,4 +47,3 @@ Finally in your routes.rb pass the routes you want to be localized to localize m
     math 'contact' => 'static#contact', :as => 'contact'
   end
 
-=== NOTE: The localize method has been changed from localize to localized in version 1.1.2
