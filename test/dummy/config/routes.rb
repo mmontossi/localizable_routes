@@ -1,6 +1,6 @@
 Dummy::Application.routes.draw do
   
-  localize do
+  localized do
     namespace :namespace do
       match 'nested' => 'nested#nested', :as => :nested
     end

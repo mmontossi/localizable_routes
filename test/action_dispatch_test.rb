@@ -58,7 +58,7 @@ class ActionDispatchTest < ActionController::IntegrationTest
     Rails.application.config.i18n_routes.selection = type
     with_routing do |set|
       set.draw do
-        localize do
+        localized do
           namespace :namespace do
             match 'nested' => 'nested#nested', :as => :nested
           end        

@@ -2,7 +2,7 @@ module RailsI18nRoutes
   module ActionDispatch
     module MapperMethods
     
-      def localize
+      def localized
         @locales = I18n.available_locales.dup
         case Rails.application.config.i18n_routes.selection
         when :prefix

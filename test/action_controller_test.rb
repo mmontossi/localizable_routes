@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ApplicationControllerTest < ActionController::TestCase
+class ActionControllerTest < ActionController::TestCase
   tests SimpleController
 
   test "should select correct locale by subdomain" do

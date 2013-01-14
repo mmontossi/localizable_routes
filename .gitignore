@@ -1,4 +1,3 @@
-*.tmproj
 *.gem
 .bundle/
 log/*.log

@@ -41,6 +41,8 @@ Inside each yaml file:
 (Please note each part of the path it's translated individually, you don't have to put translations for paths like "users/1/profile" just translate "users" and "profile", the plugin will do the rest)
   
 Finally in your routes.rb pass the routes you want to be localized to localize method:
-  localize do
+  localized do
     math 'contact' => 'static#contact', :as => 'contact'
   end
+
+=== NOTE: The localize method has been changed from localize to localized in version 1.1.2
