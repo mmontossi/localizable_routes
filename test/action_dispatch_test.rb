@@ -32,7 +32,8 @@ class ActionDispatchTest < ActionController::IntegrationTest
   test "should translate prefix routes" do
     with_routes_type :prefix do
       I18n.available_locales.select{|l|l!=:en}.each do |locale|            
-  
+        I18n.locale = locale
+
         assert_recognizes(
           { :controller => 'namespace/nested', :action => 'nested', :locale => locale.to_s },
           "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested')}"

@@ -34,8 +34,8 @@ module RailsI18nRoutes
         selection = Rails.application.config.i18n_routes.selection  
         subdomain = locale.to_s.split('-')[1].downcase if selection == :subdomain
         options.merge(
-          :constraints => selection == :locale ? {:locale => locale} : {:subdomain => subdomain},
-          :as => options[:as] ? "#{options[:as]}_#{selection == :locale ? locale : subdomain}" : nil 
+          :constraints => selection == :prefix ? {:locale => locale.to_s} : {:subdomain => subdomain.to_s},
+          :as => options[:as] ? "#{options[:as]}_#{selection == :prefix ? locale.to_s.gsub('-', '_').downcase : subdomain}" : nil 
         )
       end
       
@@ -62,7 +62,7 @@ module RailsI18nRoutes
               if Rails.application.config.i18n_routes.selection == :subdomain
                 suffix = (options[:subdomain] ? options[:subdomain] : request.subdomain)
               else
-                suffix = (options[:locale] ? options[:locale] : I18n.locale)
+                suffix = (options[:locale] ? options[:locale] : I18n.locale).to_s.gsub('-', '_').downcase
               end
               send ("#{name}_" + suffix.to_s + "_#{kind}"), *(args << options)
             end
