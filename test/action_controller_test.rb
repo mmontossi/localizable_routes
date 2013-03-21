@@ -8,7 +8,7 @@ class ActionControllerTest < ActionController::TestCase
     subdomains = []
     Rails.application.config.i18n_routes.mapping.each_pair do |lang, countries|
       countries = [countries] unless countries.is_a? Array
-      countries.each do |country|    
+      countries.each do |country|
 
         @request.host = "#{country}.example.org"
         get :show

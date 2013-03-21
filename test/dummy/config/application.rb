@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require
-require "rails-i18n-routes"
+require 'rails-i18n-routes'
 
 module Dummy
   class Application < Rails::Application
@@ -56,7 +56,7 @@ module Dummy
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
       
-    config.i18n_routes.selection = :prefix
+    config.i18n_routes.selection = :subdomain
     config.i18n_routes.mapping = {
       :en => :us,
       :es => [:uy, :ar]    
