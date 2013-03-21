@@ -1,5 +1,7 @@
 es-UY:
   routes:
     namespace: "nombre-de-espacio"
-    nested: "anidada"
-    simple: "simple"
+    nesteds: "anidadas"
+    simples: "simples"
+    resources: "recursos"
+    nesteds_resources: "recursos-anidados"

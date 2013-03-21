@@ -10,18 +10,28 @@ class ActionDispatchTest < ActionController::IntegrationTest
           I18n.locale = "#{lang}-#{country.upcase}"
 
           assert_recognizes(
-            { :controller => 'namespace/nested', :action => 'nested' },
-            "http://#{country}.example.org/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested')}"
+            { :controller => 'namespace/nesteds_resources', :action => 'show' },
+            "http://#{country}.example.org/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds_resources')}"
           )
 
           assert_recognizes(
-            { :controller => 'simple', :action => 'simple' },
-            "http://#{country}.example.org/#{I18n.t('routes.simple')}",
+            { :controller => 'namespace/nesteds', :action => 'show' },
+            "http://#{country}.example.org/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds')}"
           )
 
           assert_recognizes(
-            { :controller => 'params', :action => 'params', :p1 => '1', :p2 => '2' },
+            { :controller => 'simples', :action => 'show' },
+            "http://#{country}.example.org/#{I18n.t('routes.simples')}"
+          )
+
+          assert_recognizes(
+            { :controller => 'params', :action => 'show', :p1 => '1', :p2 => '2' },
             "http://#{country}.example.org/params/1/2"
+          )
+
+          assert_recognizes(
+            { :controller => 'resources', :action => 'show' },
+            "http://#{country}.example.org/#{I18n.t('routes.resources')}"
           )
 
         end
@@ -35,18 +45,28 @@ class ActionDispatchTest < ActionController::IntegrationTest
         I18n.locale = locale
 
         assert_recognizes(
-          { :controller => 'namespace/nested', :action => 'nested', :locale => locale.to_s },
-          "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested')}"
+          { :controller => 'namespace/nesteds', :action => 'show', :locale => locale.to_s },
+          "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds')}"
         )
 
         assert_recognizes(
-          { :controller => 'simple', :action => 'simple', :locale => locale.to_s },
-          "/#{locale}/#{I18n.t('routes.simple')}",
+          { :controller => 'namespace/nesteds_resources', :action => 'show', :locale => locale.to_s },
+          "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds_resources')}"
         )
 
         assert_recognizes(
-          { :controller => 'params', :action => 'params', :locale => locale.to_s, :p1 => '1', :p2 => '2' },
+          { :controller => 'simples', :action => 'show', :locale => locale.to_s },
+          "/#{locale}/#{I18n.t('routes.simples')}"
+        )
+
+        assert_recognizes(
+          { :controller => 'params', :action => 'show', :locale => locale.to_s, :p1 => '1', :p2 => '2' },
           "/#{locale}/params/1/2"
+        )
+
+        assert_recognizes(
+          { :controller => 'resources', :action => 'show', :locale => locale.to_s },
+          "/#{locale}/#{I18n.t('routes.resources')}"
         )
 
       end
@@ -61,10 +81,12 @@ class ActionDispatchTest < ActionController::IntegrationTest
       set.draw do
         localized do
           namespace :namespace do
-            match 'nested' => 'nested#nested', :as => :nested
+            match 'nesteds' => 'nesteds#show', :as => :nesteds
+            resource :nesteds_resources
           end        
-          match 'simple' => 'simple#simple', :as => :simple
-          match 'params/:p1/:p2' => 'params#params', :as => :params
+          match 'simples' => 'simples#show', :as => :simples
+          match 'params/:p1/:p2' => 'params#show', :as => :params
+          resource :resources
         end
       end
       yield

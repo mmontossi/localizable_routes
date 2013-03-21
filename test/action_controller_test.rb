@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ActionControllerTest < ActionController::TestCase
-  tests SimpleController
+  tests SimplesController
 
   test "should select correct locale by subdomain" do
     Rails.application.config.i18n_routes.selection = :subdomain
@@ -11,7 +11,7 @@ class ActionControllerTest < ActionController::TestCase
       countries.each do |country|    
 
         @request.host = "#{country}.example.org"
-        get :simple
+        get :show
         assert_equal I18n.locale.to_s, "#{lang}-#{country.upcase}"
  
         subdomains << country  
@@ -25,7 +25,7 @@ class ActionControllerTest < ActionController::TestCase
     Rails.application.config.i18n_routes.selection = :prefix 
     I18n.available_locales.select{|l|l!=:en}.each do |locale|
       
-      get :simple, :locale => locale.to_s
+      get :show, :locale => locale.to_s
       assert_equal I18n.locale.to_s, locale.to_s
 
     end

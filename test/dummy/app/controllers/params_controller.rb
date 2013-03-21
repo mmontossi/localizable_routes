@@ -1,6 +1,6 @@
 class ParamsController < ApplicationController
 
-  def params
+  def show
 
   end
 

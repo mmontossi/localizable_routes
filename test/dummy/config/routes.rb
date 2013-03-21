@@ -2,9 +2,9 @@ Dummy::Application.routes.draw do
   
   localized do
     namespace :namespace do
-      match 'nested' => 'nested#nested', :as => :nested
+      match 'nesteds' => 'nesteds#show', :as => :nested
     end
-    match 'simple' => 'simple#simple', :as => :simple
+    match 'simples' => 'simples#show', :as => :simple
   end 
     
   # The priority is based upon order of creation:

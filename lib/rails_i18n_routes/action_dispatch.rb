@@ -18,14 +18,16 @@ module RailsI18nRoutes
       
       def add_route(action, options)
         if @locales
+          scope = @scope.dup
           @locales.each do |locale|          
             @scope[:path] = i18n_path(@scope[:path], locale) if @scope[:path]
             super(*[i18n_path(action, locale), i18n_options(options, locale)])
           end
           @set.named_routes.define_i18n_route_helper @scope[:as] ? "#{@scope[:as]}_#{options[:as]}" : options[:as] 
+          @scope = scope
           return
         end
-        super      
+        super
       end     
       
       protected
@@ -40,8 +42,8 @@ module RailsI18nRoutes
       end
       
       def i18n_path(path, locale)
-        i18n_path = [] 
-        path.split('/').each do |part|
+        i18n_path = []
+        path.to_s.split('/').each do |part|
           next if part == ''
           part.gsub!(/-/, '_')
           i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part.gsub(/_/, '-')))

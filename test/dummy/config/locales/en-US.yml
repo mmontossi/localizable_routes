@@ -1,5 +1,7 @@
 en-US:
   routes:
     namespace: "namespace"
-    nested: "nested"
-    simple: "simple"
+    nesteds: "nesteds"
+    simples: "simples"
+    resources: "resources"
+    nesteds_resources: "nesteds-resources"
