@@ -17,9 +17,9 @@ module RailsI18nRoutes
       end
       
       def add_route(action, options)
-        if @locales
+       if @locales
           scope = @scope.dup
-          @locales.each do |locale|          
+          @locales.each do |locale|
             @scope[:path] = i18n_path(@scope[:path], locale) if @scope[:path]
             super(*[i18n_path(action, locale), i18n_options(options, locale)])
           end
@@ -35,10 +35,18 @@ module RailsI18nRoutes
       def i18n_options(options, locale)
         selection = Rails.application.config.i18n_routes.selection  
         subdomain = locale.to_s.split('-')[1].downcase if selection == :subdomain
-        options.merge(
-          :constraints => selection == :prefix ? {:locale => locale.to_s} : {:subdomain => subdomain.to_s},
-          :as => options[:as] ? "#{options[:as]}_#{selection == :prefix ? locale.to_s.gsub('-', '_').downcase : subdomain}" : nil 
-        )
+        changes = { :constraints => selection == :prefix ? {:locale => locale.to_s} : {:subdomain => subdomain.to_s} }
+        suffix = selection == :prefix ? locale.to_s.gsub('-', '_').downcase : subdomain
+        if options[:as].present?
+          changes[:as] = "#{options[:as]}_#{suffix}"
+        elsif @scope[:scope_level_resource].present?
+          resource = @scope[:scope_level_resource]
+          ['singular', 'plural'].each do |context|
+            resource.instance_variable_set "@original_#{context}".to_sym, resource.send(context.to_sym) unless resource.instance_variable_get "@original_#{context}".to_sym
+            resource.instance_variable_set "@#{context}".to_sym, "#{resource.instance_variable_get "@original_#{context}".to_sym}_#{suffix}"
+          end
+        end
+        options.merge changes
       end
       
       def i18n_path(path, locale)
