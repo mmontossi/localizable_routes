@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 # Declare your gem's dependencies in rails-i18n-routes.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and

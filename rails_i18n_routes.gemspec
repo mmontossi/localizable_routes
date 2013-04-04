@@ -5,11 +5,11 @@ require 'rails_i18n_routes/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = 'rails-i18n-routes'
+  s.name        = 'rails_i18n_routes'
   s.version     = RailsI18nRoutes::VERSION
   s.authors     = ['Mattways']
   s.email       = ['contact@mattways.com']
-  s.homepage    = 'https://github.com/mattways/rails-i18n-routes'
+  s.homepage    = 'https://github.com/mattways/rails_i18n_routes'
   s.summary     = 'Toolkit for Rails i18n routes.'
   s.description = 'Minimalistic toolkit to handle i18n routes and detect locale from subdomain or prefix.'
 

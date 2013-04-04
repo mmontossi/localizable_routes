@@ -3,7 +3,7 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 
 Bundler.require
-require 'rails-i18n-routes'
+require 'rails_i18n_routes'
 
 module Dummy
   class Application < Rails::Application

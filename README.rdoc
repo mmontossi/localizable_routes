@@ -2,7 +2,7 @@
 
 ---
 
-{<img src="https://codeclimate.com/github/mattways/rails-i18n-routes.png" />}[https://codeclimate.com/github/mattways/rails-i18n-routes] {<img src="https://secure.travis-ci.org/mattways/rails-i18n-routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/mattways/rails-i18n-routes] {<img src="https://gemnasium.com/mattways/rails-i18n-routes.png" alt="Dependency Status" />}[https://gemnasium.com/mattways/rails-i18n-routes]
+{<img src="https://codeclimate.com/github/mattways/rails_i18n_routes.png" />}[https://codeclimate.com/github/mattways/rails_i18n_routes] {<img src="https://secure.travis-ci.org/mattways/rails_i18n_routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/mattways/rails_i18n_routes] {<img src="https://gemnasium.com/mattways/rails_i18n_routes.png" alt="Dependency Status" />}[https://gemnasium.com/mattways/rails_i18n_routes]
 
 = Rails I18n Routes
 
@@ -11,7 +11,7 @@ Minimalistic toolkit to handle i18n routes and detect locale from subdomain or p
 = Install
 
 Put this line in your Gemfile:
-  gem 'rails-i18n-routes'
+  gem 'rails_i18n_routes'
   
 Then bundle:
   $ bundle  
@@ -48,4 +48,3 @@ Finally in your routes.rb pass the routes you want to be localized to localize m
   localized do
     math 'contact' => 'static#contact', :as => 'contact'
   end
-
