@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ActionDispatchTest < ActionController::IntegrationTest
+class RoutesTest < ActionController::IntegrationTest
 
   test "should translate subdomain routes" do
     with_routes_type :subdomain do
