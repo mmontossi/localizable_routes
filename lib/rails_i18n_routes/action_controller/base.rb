@@ -1,6 +1,6 @@
 module RailsI18nRoutes
   module ActionController
-    module BaseMethods
+    module Base
         
       def self.included(base)
         base.send :prepend_before_filter, :select_locale

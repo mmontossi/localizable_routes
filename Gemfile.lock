@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rails_i18n_routes (1.1.5)
+    rails_i18n_routes (1.1.7)
       rails (>= 3.2.8)
 
 GEM
