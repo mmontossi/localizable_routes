@@ -3,7 +3,7 @@ require 'test_helper'
 class SelectionTest < ActionController::TestCase
   tests SimplesController
 
-  test "should select correct locale by subdomain" do
+  test 'should select correct locale by subdomain' do
     Rails.application.config.i18n_routes.selection = :subdomain
     subdomains = []
     Rails.application.config.i18n_routes.mapping.each_pair do |lang, countries|
@@ -21,7 +21,7 @@ class SelectionTest < ActionController::TestCase
     assert_equal @controller.send(:subdomains), subdomains
   end
 
-  test "should select correct locale by prefix" do
+  test 'should select correct locale by prefix' do
     Rails.application.config.i18n_routes.selection = :prefix 
     I18n.available_locales.select{|l|l!=:en}.each do |locale|
       
