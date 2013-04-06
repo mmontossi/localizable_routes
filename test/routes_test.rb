@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RoutesTest < ActionController::IntegrationTest
 
-  test 'should translate subdomain routes' do
+  test "should translate subdomain routes" do
     with_routes_type :subdomain do
       Rails.application.config.i18n_routes.mapping.each_pair do |lang, countries|
         countries = [countries] unless countries.is_a? Array
@@ -39,7 +39,7 @@ class RoutesTest < ActionController::IntegrationTest
     end    
   end
 
-  test 'should translate prefix routes' do
+  test "should translate prefix routes" do
     with_routes_type :prefix do
       I18n.available_locales.select{|l|l!=:en}.each do |locale|            
         I18n.locale = locale
