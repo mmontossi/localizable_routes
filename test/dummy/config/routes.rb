@@ -1,6 +1,9 @@
 Dummy::Application.routes.draw do
   
   localized do
+    namespace :test, :path => 'prueba' do
+      resources :test1, :path => 'prueba1'
+    end
     namespace :namespace do
       match 'nesteds' => 'nesteds#show', :as => :nested
     end

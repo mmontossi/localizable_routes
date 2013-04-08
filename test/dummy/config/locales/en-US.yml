@@ -1,5 +1,7 @@
 en-US:
   routes:
+    new: "new"
+    edit: "edit"
     namespace: "namespace"
     nesteds: "nesteds"
     simples: "simples"

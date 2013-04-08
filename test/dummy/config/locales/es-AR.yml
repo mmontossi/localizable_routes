@@ -1,5 +1,7 @@
 es-AR:
   routes:
+    new: "nuevo"
+    edit: "editar"
     namespace: "nombre-de-espacio"
     nesteds: "anidadas"
     simples: "simples"

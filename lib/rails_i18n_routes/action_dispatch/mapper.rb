@@ -18,18 +18,21 @@ module RailsI18nRoutes
       
       def add_route(action, options)
        if @locales
-          scope = @scope.dup
           @locales.each do |locale|
-            @scope[:path] = i18n_path(@scope[:path], locale) if @scope[:path]
+            path = @scope[:path].dup if @scope[:path].present?
+            path_names = @scope[:path_names].dup
+            @scope[:path] = i18n_path(path, locale) if @scope[:path].present?
+            @scope[:path_names].each { |key, value| @scope[:path_names][key] = I18n.t("routes.#{key}", :locale => locale, :default => value) }
             super(*[i18n_path(action, locale), i18n_options(options, locale)])
+            @scope[:path] = path if @scope[:path].present?
+            @scope[:path_names] = path_names
           end
-          @set.named_routes.define_i18n_route_helper @scope[:as] ? "#{@scope[:as]}_#{options[:as]}" : options[:as] 
-          @scope = scope
+          @set.named_routes.define_i18n_route_helper @scope[:as] ? "#{@scope[:as]}_#{options[:as]}" : options[:as] unless @scope[:scope_level_resource].present?
           return
         end
         super
-      end     
-      
+      end
+
       protected
 
       def i18n_options(options, locale)
@@ -50,13 +53,17 @@ module RailsI18nRoutes
       end
       
       def i18n_path(path, locale)
-        i18n_path = []
-        path.to_s.split('/').each do |part|
-          next if part == ''
-          part.gsub!(/-/, '_')
-          i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part.gsub(/_/, '-')))
-        end  
-        i18n_path.join('/')
+        unless path.is_a? Symbol
+          i18n_path = []
+          path.split('/').each do |part|
+            next if part == ''
+            part.gsub!(/-/, '_')
+            i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", :locale => locale, :default => part.gsub(/_/, '-')))
+          end  
+          i18n_path.join('/')
+        else
+          path
+        end
       end
     
     end
