@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Mattways']
   s.email       = ['contact@mattways.com']
   s.homepage    = 'https://github.com/mattways/translatable_routes'
-  s.summary     = 'Toolkit for Rails i18n routes.'
-  s.description = 'Minimalistic toolkit to handle i18n routes and detect locale from subdomain or prefix.'
+  s.summary     = 'Translatable Routes for Rails.'
+  s.description = 'Minimalistic toolkit to handle translatable routes and detect locale from subdomain or prefix.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']

@@ -2,7 +2,7 @@
 
 = Translatable Routes
 
-Minimalistic toolkit to handle i18n routes and detect locale from subdomain or prefix.
+Minimalistic toolkit to handle translatable routes and detect locale from subdomain or prefix.
 
 = Install
 
@@ -22,8 +22,8 @@ To use prefix (default):
 To use subdomain:
   config.translatable_routes.selection = :subdomain
   config.translatable_routes.mapping = {
-    :es => [:ar, :uy]
-    :pt => [:br]
+    es: [:ar, :uy]
+    pt: [:br]
   }
 
 In the case of subdomains you need to name the yml file in your locales dir using this format:
@@ -42,5 +42,5 @@ Inside each yaml file:
   
 Finally in your routes.rb pass the routes you want to be localized to localize method:
   localized do
-    math 'contact' => 'static#contact', :as => 'contact'
+    get 'contact', to: 'static#contact', as: 'contact'
   end
