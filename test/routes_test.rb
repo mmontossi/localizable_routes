@@ -1,36 +1,36 @@
 require 'test_helper'
 
-class RoutesTest < ActionController::IntegrationTest
+class RoutesTest < ActionDispatch::IntegrationTest
 
   test "should translate subdomain routes" do
     with_routes_type :subdomain do
-      Rails.application.config.i18n_routes.mapping.each_pair do |lang, countries|
+      Rails.application.config.translatable_routes.mapping.each_pair do |lang, countries|
         countries = [countries] unless countries.is_a? Array
         countries.each do |country|
           I18n.locale = "#{lang}-#{country.upcase}"
 
           assert_recognizes(
-            { :controller => 'namespace/nesteds_resources', :action => 'show' },
-            "http://#{country}.example.org/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds_resources')}"
+            { controller: 'namespace/nested_resources', action: 'show', subdomain: country.to_s },
+            "http://#{country}.example.org/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested_resources')}"
           )
 
           assert_recognizes(
-            { :controller => 'namespace/nesteds', :action => 'show' },
-            "http://#{country}.example.org/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds')}"
+            { controller: 'namespace/nested', action: 'show', subdomain: country.to_s },
+            "http://#{country}.example.org/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested')}"
           )
 
           assert_recognizes(
-            { :controller => 'simples', :action => 'show' },
-            "http://#{country}.example.org/#{I18n.t('routes.simples')}"
+            { controller: 'simple', action: 'show', subdomain: country.to_s },
+            "http://#{country}.example.org/#{I18n.t('routes.simple')}"
           )
 
           assert_recognizes(
-            { :controller => 'params', :action => 'show', :p1 => '1', :p2 => '2' },
+            { controller: 'params', action: 'show', p1: '1', p2: '2', subdomain: country.to_s },
             "http://#{country}.example.org/params/1/2"
           )
 
           assert_recognizes(
-            { :controller => 'resources', :action => 'show' },
+            { controller: 'resources', action: 'show', subdomain: country.to_s },
             "http://#{country}.example.org/#{I18n.t('routes.resources')}"
           )
 
@@ -41,31 +41,31 @@ class RoutesTest < ActionController::IntegrationTest
 
   test "should translate prefix routes" do
     with_routes_type :prefix do
-      I18n.available_locales.select{|l|l!=:en}.each do |locale|            
+      I18n.available_locales.select{ |l| l != :en }.each do |locale|            
         I18n.locale = locale
 
         assert_recognizes(
-          { :controller => 'namespace/nesteds', :action => 'show', :locale => locale.to_s },
-          "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds')}"
+          { controller: 'namespace/nested', action: 'show', locale: locale.to_s },
+          "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested')}"
         )
 
         assert_recognizes(
-          { :controller => 'namespace/nesteds_resources', :action => 'show', :locale => locale.to_s },
-          "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nesteds_resources')}"
+          { controller: 'namespace/nested_resources', action: 'show', locale: locale.to_s },
+          "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested_resources')}"
         )
 
         assert_recognizes(
-          { :controller => 'simples', :action => 'show', :locale => locale.to_s },
-          "/#{locale}/#{I18n.t('routes.simples')}"
+          { controller: 'simple', action: 'show', locale: locale.to_s },
+          "/#{locale}/#{I18n.t('routes.simple')}"
         )
 
         assert_recognizes(
-          { :controller => 'params', :action => 'show', :locale => locale.to_s, :p1 => '1', :p2 => '2' },
+          { controller: 'params', action: 'show', locale: locale.to_s, p1: '1', p2: '2' },
           "/#{locale}/params/1/2"
         )
 
         assert_recognizes(
-          { :controller => 'resources', :action => 'show', :locale => locale.to_s },
+          { controller: 'resources', action: 'show', locale: locale.to_s },
           "/#{locale}/#{I18n.t('routes.resources')}"
         )
 
@@ -76,16 +76,16 @@ class RoutesTest < ActionController::IntegrationTest
   protected
 
   def with_routes_type(type)
-    Rails.application.config.i18n_routes.selection = type
+    Rails.application.config.translatable_routes.selection = type
     with_routing do |set|
       set.draw do
         localized do
           namespace :namespace do
-            match 'nesteds' => 'nesteds#show', :as => :nesteds
-            resource :nesteds_resources
+            get 'nested', to: 'nested#show', as: :nested
+            resource :nested_resources
           end        
-          match 'simples' => 'simples#show', :as => :simples
-          match 'params/:p1/:p2' => 'params#show', :as => :params
+          get 'simple', to: 'simple#show', as: :simple
+          get 'params/:p1/:p2', to: 'params#show', as: :params
           resource :resources
         end
       end

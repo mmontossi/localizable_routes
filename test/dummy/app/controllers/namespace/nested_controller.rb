@@ -1,7 +1,6 @@
-class Namespace::NestedsController < ApplicationController
+class Namespace::NestedController < ApplicationController
 
   def show
-
   end
   
 end

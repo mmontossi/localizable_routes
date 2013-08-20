@@ -1,31 +1,27 @@
-=== NOTE: The localize method has been changed from localize to localized in version 1.1.2
+{<img src="https://codeclimate.com/github/mattways/translatable_routes.png" />}[https://codeclimate.com/github/mattways/translatable_routes] {<img src="https://secure.travis-ci.org/mattways/translatable_routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/mattways/translatable_routes] {<img src="https://gemnasium.com/mattways/translatable_routes.png" alt="Dependency Status" />}[https://gemnasium.com/mattways/translatable_routes]
 
----
-
-{<img src="https://codeclimate.com/github/mattways/rails_i18n_routes.png" />}[https://codeclimate.com/github/mattways/rails_i18n_routes] {<img src="https://secure.travis-ci.org/mattways/rails_i18n_routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/mattways/rails_i18n_routes] {<img src="https://gemnasium.com/mattways/rails_i18n_routes.png" alt="Dependency Status" />}[https://gemnasium.com/mattways/rails_i18n_routes]
-
-= Rails I18n Routes
+= Translatable Routes
 
 Minimalistic toolkit to handle i18n routes and detect locale from subdomain or prefix.
 
 = Install
 
 Put this line in your Gemfile:
-  gem 'rails_i18n_routes'
+  gem 'translatable_routes'
   
 Then bundle:
   $ bundle  
   
 = Usage
 
-Choose how the language would be selected in your application.rb...
+Choose how the language would be selected in your application.rb:
 
 To use prefix (default):
-  config.i18n_routes.selection = :prefix
+  config.translatable_routes.selection = :prefix
 
 To use subdomain:
-  config.i18n_routes.selection = :subdomain
-  config.i18n_routes.mapping = {
+  config.translatable_routes.selection = :subdomain
+  config.translatable_routes.mapping = {
     :es => [:ar, :uy]
     :pt => [:br]
   }
