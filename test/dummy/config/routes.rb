@@ -1,7 +1,7 @@
 Dummy::Application.routes.draw do
 
   localized do
-    root 'pages#index'
+    root to: 'pages#index'
     namespace :namespace do
       get 'nested', to: 'pages#nested', as: :nested
       resources :resources
