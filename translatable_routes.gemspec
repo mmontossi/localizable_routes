@@ -7,9 +7,9 @@ require 'translatable_routes/version'
 Gem::Specification.new do |s|
   s.name        = 'translatable_routes'
   s.version     = TranslatableRoutes::VERSION
-  s.authors     = ['Mattways']
-  s.email       = ['contact@mattways.com']
-  s.homepage    = 'https://github.com/mattways/translatable_routes'
+  s.authors     = ['Museways']
+  s.email       = ['contact@museways.com']
+  s.homepage    = 'https://github.com/museways/translatable_routes'
   s.summary     = 'Translatable Routes for Rails.'
   s.description = 'Minimalistic toolkit to handle translatable routes and detect locale from subdomain or prefix.'
   s.license     = 'MIT'

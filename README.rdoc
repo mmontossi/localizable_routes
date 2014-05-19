@@ -1,8 +1,8 @@
-{<img src="https://codeclimate.com/github/mattways/translatable_routes.png" />}[https://codeclimate.com/github/mattways/translatable_routes] {<img src="https://secure.travis-ci.org/mattways/translatable_routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/mattways/translatable_routes] {<img src="https://gemnasium.com/mattways/translatable_routes.png" alt="Dependency Status" />}[https://gemnasium.com/mattways/translatable_routes]
+{<img src="https://badge.fury.io/rb/translatable_routes.png" alt="Gem Version" />}[http://badge.fury.io/rb/translatable_routes] {<img src="https://codeclimate.com/github/museways/translatable_routes.png" />}[https://codeclimate.com/github/museways/translatable_routes] {<img src="https://travis-ci.org/museways/translatable_routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/museways/translatable_routes] {<img src="https://gemnasium.com/museways/translatable_routes.png" alt="Dependency Status" />}[https://gemnasium.com/museways/translatable_routes]
 
 = Translatable Routes
 
-Minimalistic toolkit to handle translatable routes and detect locale from subdomain or prefix.
+Minimalistic toolkit to translate routes.
 
 = Install
 
@@ -10,37 +10,23 @@ Put this line in your Gemfile:
   gem 'translatable_routes'
   
 Then bundle:
-  $ bundle  
+  $ bundle
   
 = Usage
 
-Choose how the language would be selected in your application.rb:
-
-To use prefix (default):
-  config.translatable_routes.selection = :prefix
-
-To use subdomain:
-  config.translatable_routes.selection = :subdomain
-  config.translatable_routes.mapping = {
-    es: [:ar, :uy]
-    pt: [:br]
-  }
-
-In the case of subdomains you need to name the yml file in your locales dir using this format:
-  es-UY.yml
-  es-AR.yml
-  pt-BR.yml
-  
-Inside each yaml file:
-  es-UY:
+Inside each locale yaml file:
+  es:
     routes:
       users: "usuarios"
       profile: "perfil"
       login: "entrar"
-      
+ 
 (Please note each part of the path it's translated individually, you don't have to put translations for paths like "users/1/profile" just translate "users" and "profile", the plugin will do the rest)
   
-Finally in your routes.rb pass the routes you want to be localized to localize method:
+In your config/routes.rb use the localized block to decide wich routes will be translated:
   localized do
-    get 'contact', to: 'static#contact', as: 'contact'
+    get 'about' => 'pages#about'
   end
+
+The helpers inside views and controllers will continue working the same but I18n.locale will be use as default locale:
+  about_path # /en/about

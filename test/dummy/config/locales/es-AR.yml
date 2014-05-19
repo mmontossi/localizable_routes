@@ -1,9 +1,0 @@
-es-AR:
-  routes:
-    new: "nuevo"
-    edit: "editar"
-    namespace: "nombre-de-espacio"
-    nested: "anidado"
-    simple: "simple"
-    resources: "recursos"
-    nested_resources: "recursos-anidados"

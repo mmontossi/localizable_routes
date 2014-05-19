@@ -1,4 +1,4 @@
-en-US:
+en:
   routes:
     new: "new"
     edit: "edit"
@@ -6,4 +6,3 @@ en-US:
     nested: "nested"
     simple: "simple"
     resources: "resources"
-    nested_resources: "nested-resources"

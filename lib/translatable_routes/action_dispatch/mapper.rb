@@ -2,71 +2,70 @@ module TranslatableRoutes
   module ActionDispatch
     module Mapper
       extend ActiveSupport::Concern
-    
+
       def localized
-        @locales = I18n.available_locales.dup
-        case Rails.application.config.translatable_routes.selection
-        when :prefix
-          scope ':locale' do
-            yield
-          end
-        when :subdomain
-          @locales.shift # For some reason :en is always there          
-          yield
-        end    
-        @locales = nil # Needed to routes below localize block to work
+        @locales = I18n.available_locales
+        scope(':locale') { yield }
+        @locales = nil
       end
-      
+ 
       def add_route(action, options)
         if @locales
           @locales.each do |locale|
-            path = @scope[:path].dup if @scope[:path].present?
-            path_names = @scope[:path_names].dup
-            @scope[:path] = i18n_path(path, locale) if @scope[:path].present?
-            @scope[:path_names].each { |key, value| @scope[:path_names][key] = I18n.t("routes.#{key}", locale: locale, default: value) }
-            super(*[i18n_path(action, locale), i18n_options(options, locale)])
-            @scope[:path] = path if @scope[:path].present?
-            @scope[:path_names] = path_names
+            original_scope_level_resource = @scope[:scope_level_resource].dup if @scope[:scope_level_resource]
+            original_path = @scope[:path].dup if @scope[:path]
+            original_path_names = @scope[:path_names].dup
+            original_options = options.dup
+            @scope[:path] = i18n_path(@scope[:path], locale)
+            @scope[:path_names].each { |key, value| value = i18n_path(value, locale) }
+            options[:path] = i18n_path(options[:path], locale)
+            options[:constraints] = { locale: locale.to_s }
+            options[:defaults] = { locale: locale.to_s }
+            if @scope[:scope_level_resource]
+              %w(collection_name member_name).each do |method|
+                @scope[:scope_level_resource].class_eval do
+                  define_method method do
+                    "#{super()}_#{locale}"
+                  end
+                end
+              end
+            else
+              options[:as] = "#{options[:as] || action}_#{locale}"
+            end
+            super i18n_path(action, locale), options
+            @scope[:scope_level_resource] = original_scope_level_resource if @scope[:scope_level_resource]
+            @scope[:path] = original_path if @scope[:path]
+            @scope[:path_names] = original_path_names
+            options = original_options
           end
-          @set.named_routes.define_i18n_route_helper @scope[:as] ? "#{@scope[:as]}_#{options[:as]}" : options[:as] unless @scope[:scope_level_resource].present?
-          return
+          if @scope[:scope_level_resource]
+            helper = name_for_action(options[:as], action)
+          else
+            helper = "#{options[:as] || action}"
+            helper = "#{@scope[:as]}_#{helper}" if @scope[:as]
+          end
+          @set.named_routes.define_i18n_url_helper helper
+        else
+          super
         end
-        super
       end
 
       protected
-
-      def i18n_options(options, locale)
-        selection = Rails.application.config.translatable_routes.selection  
-        subdomain = locale.to_s.split('-')[1].downcase if selection == :subdomain
-        changes = { constraints: selection == :prefix ? { locale: locale.to_s } : { subdomain: subdomain.to_s } }
-        suffix = selection == :prefix ? locale.to_s.gsub('-', '_').downcase : subdomain
-        if options[:as].present?
-          changes[:as] = "#{options[:as]}_#{suffix}"
-        elsif @scope[:scope_level_resource].present?
-          resource = @scope[:scope_level_resource]
-          ['singular', 'plural'].each do |context|
-            resource.instance_variable_set "@original_#{context}".to_sym, resource.send(context.to_sym) unless resource.instance_variable_get "@original_#{context}".to_sym
-            resource.instance_variable_set "@#{context}".to_sym, "#{resource.instance_variable_get "@original_#{context}".to_sym}_#{suffix}"
-          end
-        end
-        options[:path] = i18n_path(options[:path], locale) if options[:path].present?
-        options.merge changes
-      end
-      
+ 
       def i18n_path(path, locale)
-        unless path.is_a? Symbol
+        case path
+        when String
           i18n_path = []
           path.split('/').each do |part|
             next if part == ''
             i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", locale: locale, default: part.gsub(/_/, '-')))
-          end  
+          end
           i18n_path.join('/')
-        else
+        when Symbol
           path
         end
       end
-    
+
     end
   end
 end

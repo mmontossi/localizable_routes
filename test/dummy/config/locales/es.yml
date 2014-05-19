@@ -1,4 +1,4 @@
-es-UY:
+es:
   routes:
     new: "nuevo"
     edit: "editar"
@@ -6,4 +6,3 @@ es-UY:
     nested: "anidado"
     simple: "simple"
     resources: "recursos"
-    nested_resources: "recursos-anidados"

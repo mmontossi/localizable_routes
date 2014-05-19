@@ -1,7 +1,16 @@
 Dummy::Application.routes.draw do
 
-  root to: 'pages#show'
-  
+  localized do
+    root 'pages#index'
+    namespace :namespace do
+      get 'nested', to: 'pages#nested', as: :nested
+      resources :resources
+    end
+    get 'simple', to: 'pages#simple', as: :simple
+    get 'complex/:p1/:p2', to: 'pages#complex', as: :complex
+    resources :resources
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
