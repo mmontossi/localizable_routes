@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ['contact@museways.com']
   s.homepage    = 'https://github.com/museways/translatable_routes'
   s.summary     = 'Translatable Routes for Rails.'
-  s.description = 'Minimalistic toolkit to handle translatable routes and detect locale from subdomain or prefix.'
+  s.description = 'Minimalistic toolkit to translate routes.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.rdoc']

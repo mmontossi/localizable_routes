@@ -14,19 +14,28 @@ Then bundle:
   
 = Usage
 
-Inside each locale yaml file:
-  es:
-    routes:
-      users: "usuarios"
-      profile: "perfil"
-      login: "entrar"
- 
-(Please note each part of the path it's translated individually, you don't have to put translations for paths like "users/1/profile" just translate "users" and "profile", the plugin will do the rest)
-  
-In your config/routes.rb use the localized block to decide wich routes will be translated:
+In your config/routes.rb use the localized method to decide wich routes will be localized:
   localized do
     get 'about' => 'pages#about'
   end
 
+Put your translations inside the routes key in your locales yamls:
+  es:
+    routes:
+      users: "usuarios"
+      profile: "perfil"
+      about: "nosotros"
+ 
+(There is no need to put the full path "users/1/profile", just translate each slug)
+
 The helpers inside views and controllers will continue working the same but I18n.locale will be use as default locale:
   about_path # /en/about
+
+This gem will not provide a default locale selection in the controller, since you may be interested in differente types of logics, you need to add it manually. Here it's a very simple example:
+  before_action :select_locale
+
+  protected
+
+  def select_locale
+    I18n.locale = params[:locale]
+  end
