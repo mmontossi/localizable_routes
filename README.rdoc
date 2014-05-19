@@ -26,12 +26,12 @@ Put your translations inside the routes key in your locales yamls:
       profile: "perfil"
       about: "nosotros"
  
-(There is no need to put the full path "users/1/profile", just translate each slug)
+(There is no need to put the full path "users/1/profile", just translate each slug individually)
 
-The helpers inside views and controllers will continue working the same but I18n.locale will be use as default locale:
-  about_path # /en/about
+Helpers will continue working the same but I18n.locale will be use as default locale:
+  about_path # /en/about in case I18n.locale is :en
 
-This gem will not provide a default locale selection in the controller, since you may be interested in differente types of logics, you need to add it manually. Here it's a very simple example:
+This gem will not provide a default locale selection, since you may be interested in differente types of logics, you should add it manually. Here it's a very simple example:
   before_action :select_locale
 
   protected
