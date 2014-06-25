@@ -26,16 +26,14 @@ Put your translations inside the routes key in your locales yamls:
       profile: "perfil"
       about: "nosotros"
 
-NOTE: There is no need to put the full path, just translate each slug individually.
+NOTE: There is no need to put the full path, just translate each part individually.
 
 = Usage
 
 Helpers will continue working the same but I18n.locale will be use as default locale:
   about_path # Will output /en/about in case I18n.locale is :en
 
-NOTE: Since each app may work differently, there is no default logic to select the current locale.
-
-Here it's a simple example of what you may want to add to your controllers to select the current locale:
+Here is an example of what you may want to add to your controllers to select the current locale:
   before_action :select_locale
 
   protected
