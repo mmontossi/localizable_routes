@@ -8,12 +8,16 @@ module TranslatableRoutes
         scope(':locale') { yield }
         @locales = nil
       end
- 
+
       def add_route(action, options)
         if @locales
           @locales.each do |locale|
-            original_scope_level_resource = @scope[:scope_level_resource].dup if @scope[:scope_level_resource]
-            original_path = @scope[:path].dup if @scope[:path]
+            if @scope[:scope_level_resource]
+              original_scope_level_resource = @scope[:scope_level_resource].dup
+            end
+            if @scope[:path]
+              original_path = @scope[:path].dup
+            end
             original_path_names = @scope[:path_names].dup
             original_options = options.dup
             @scope[:path] = i18n_path(@scope[:path], locale)
@@ -33,8 +37,12 @@ module TranslatableRoutes
               options[:as] = "#{options[:as] || action}_#{locale}"
             end
             super i18n_path(action, locale), options
-            @scope[:scope_level_resource] = original_scope_level_resource if @scope[:scope_level_resource]
-            @scope[:path] = original_path if @scope[:path]
+            if @scope[:scope_level_resource]
+              @scope[:scope_level_resource] = original_scope_level_resource
+            end
+            if @scope[:path]
+              @scope[:path] = original_path
+            end
             @scope[:path_names] = original_path_names
             options = original_options
           end
@@ -51,14 +59,18 @@ module TranslatableRoutes
       end
 
       protected
- 
+
       def i18n_path(path, locale)
         case path
         when String
           i18n_path = []
           path.split('/').each do |part|
             next if part == ''
-            i18n_path << ((part[0] == ':' or part[0] == '*') ? part : I18n.t("routes.#{part}", locale: locale, default: part.gsub(/_/, '-')))
+            if part[0] == ':' or part[0] == '*'
+              i18n_path << part
+            else
+              i18n_path << I18n.t("routes.#{part}", locale: locale, default: part.gsub(/_/, '-'))
+            end
           end
           i18n_path.join('/')
         when Symbol

@@ -7,7 +7,7 @@ module TranslatableRoutes
         %w(path url).each do |type|
           helper = :"#{name}_#{type}"
           @module.remove_possible_method helper
-          @module.module_eval do 
+          @module.module_eval do
             define_method helper do |*args|
               options = args.extract_options!
               suffix = (options[:locale] || I18n.locale).to_s.gsub('-', '_').downcase

@@ -1,18 +1,18 @@
-{<img src="https://badge.fury.io/rb/translatable_routes.png" alt="Gem Version" />}[http://badge.fury.io/rb/translatable_routes] {<img src="https://codeclimate.com/github/museways/translatable_routes.png" />}[https://codeclimate.com/github/museways/translatable_routes] {<img src="https://travis-ci.org/museways/translatable_routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/museways/translatable_routes] {<img src="https://gemnasium.com/museways/translatable_routes.png" alt="Dependency Status" />}[https://gemnasium.com/museways/translatable_routes]
+{<img src="https://badge.fury.io/rb/translatable_routes.png" alt="Gem Version" />}[http://badge.fury.io/rb/translatable_routes] {<img src="https://codeclimate.com/github/museways/translatable_routes.png" />}[https://codeclimate.com/github/museways/translatable_routes] {<img src="https://travis-ci.org/museways/translatable_routes.png?branch=master" alt="Build Status" />}[https://travis-ci.org/museways/translatable_routes]
 
 = Translatable Routes
 
-Minimalistic toolkit to translate routes.
+Minimalistic toolkit to translate routes in rails.
 
 = Install
 
 Put this line in your Gemfile:
   gem 'translatable_routes'
-  
+
 Then bundle:
   $ bundle
-  
-= Usage
+ 
+= Configuration
 
 In your config/routes.rb use the localized method to decide wich routes will be localized:
   localized do
@@ -25,13 +25,17 @@ Put your translations inside the routes key in your locales yamls:
       users: "usuarios"
       profile: "perfil"
       about: "nosotros"
- 
-(There is no need to put the full path "users/1/profile", just translate each slug individually)
+
+NOTE: There is no need to put the full path, just translate each slug individually.
+
+= Usage
 
 Helpers will continue working the same but I18n.locale will be use as default locale:
-  about_path # /en/about in case I18n.locale is :en
+  about_path # Will output /en/about in case I18n.locale is :en
 
-This gem will not provide a default locale selection, since you may be interested in differente types of logics, you should add it manually. Here it's a very simple example:
+NOTE: Since each app may work differently, there is no default logic to select the current locale.
+
+Here it's a simple example of what you may want to add to your controllers to select the current locale:
   before_action :select_locale
 
   protected
@@ -39,3 +43,11 @@ This gem will not provide a default locale selection, since you may be intereste
   def select_locale
     I18n.locale = params[:locale]
   end
+
+= Credits
+
+This gem is maintained and funded by museways[http://museways.com].
+
+= License
+
+It is free software, and may be redistributed under the terms specified in the MIT-LICENSE file.
