@@ -21,7 +21,9 @@ module TranslatableRoutes
             original_path_names = @scope[:path_names].dup
             original_options = options.dup
             @scope[:path] = i18n_path(@scope[:path], locale)
-            @scope[:path_names].each { |key, value| value = i18n_path(value, locale) }
+            @scope[:path_names].each do |key, value|
+              @scope[:path_names][key] = i18n_path(value, locale)
+            end
             options[:path] = i18n_path(options[:path], locale)
             options[:constraints] = { locale: locale.to_s }
             options[:defaults] = { locale: locale.to_s }

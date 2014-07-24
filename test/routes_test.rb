@@ -14,6 +14,14 @@ class RoutesTest < ActionDispatch::IntegrationTest
         "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}"
       )
       assert_recognizes(
+        { controller: 'namespace/resources', action: 'new', locale: locale.to_s },
+        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}/#{I18n.t('routes.new')}"
+      )
+      assert_recognizes(
+        { controller: 'namespace/resources', action: 'edit', locale: locale.to_s, id: '10' },
+        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}"
+      )
+      assert_recognizes(
         { controller: 'pages', action: 'simple', locale: locale.to_s },
         "/#{locale}/#{I18n.t('routes.simple')}"
       )
@@ -24,6 +32,14 @@ class RoutesTest < ActionDispatch::IntegrationTest
       assert_recognizes(
         { controller: 'resources', action: 'index', locale: locale.to_s },
         "/#{locale}/#{I18n.t('routes.resources')}"
+      )
+      assert_recognizes(
+        { controller: 'resources', action: 'new', locale: locale.to_s },
+        "/#{locale}/#{I18n.t('routes.resources')}/#{I18n.t('routes.new')}"
+      )
+      assert_recognizes(
+        { controller: 'resources', action: 'edit', locale: locale.to_s, id: '10' },
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}"
       )
     end
   end

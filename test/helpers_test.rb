@@ -14,6 +14,14 @@ class HelpersTest < ActionView::TestCase
         namespace_resources_path
       )
       assert_equal(
+        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}/#{I18n.t('routes.new')}",
+        new_namespace_resource_path
+      )
+      assert_equal(
+        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}",
+        edit_namespace_resource_path(10)
+      )
+      assert_equal(
         "/#{locale}/#{I18n.t('routes.simple')}",
         simple_path
       )
@@ -24,6 +32,14 @@ class HelpersTest < ActionView::TestCase
       assert_equal(
         "/#{locale}/#{I18n.t('routes.resources')}",
         resources_path
+      )
+      assert_equal(
+        "/#{locale}/#{I18n.t('routes.resources')}/#{I18n.t('routes.new')}",
+        new_resource_path
+      )
+      assert_equal(
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}",
+        edit_resource_path(10)
       )
     end
   end
