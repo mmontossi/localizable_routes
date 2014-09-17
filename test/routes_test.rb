@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RoutesTest < ActionDispatch::IntegrationTest
 
-  test "translate routes" do
+  test 'translate routes' do
     I18n.available_locales.each do |locale|
       I18n.locale = locale
       assert_recognizes(
