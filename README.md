@@ -15,7 +15,7 @@ Then bundle:
 ```
 $ bundle
 ```
- 
+
 ## Configuration
 
 In your config/routes.rb use the localized method to decide wich routes will be localized:

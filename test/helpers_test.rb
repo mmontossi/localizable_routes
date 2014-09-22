@@ -2,7 +2,7 @@ require 'test_helper'
 
 class HelpersTest < ActionView::TestCase
 
-  test 'create helpers' do
+  test 'helpers' do
     I18n.available_locales.each do |locale|
       I18n.locale = locale
       assert_equal(
