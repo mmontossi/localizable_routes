@@ -1,4 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/translatable_routes.svg)](http://badge.fury.io/rb/translatable_routes) [![Code Climate](https://codeclimate.com/github/museways/translatable_routes/badges/gpa.svg)](https://codeclimate.com/github/museways/translatable_routes) [![Build Status](https://travis-ci.org/museways/translatable_routes.svg?branch=master)](https://travis-ci.org/museways/translatable_routes)
+[![Gem Version](https://badge.fury.io/rb/translatable_routes.svg)](http://badge.fury.io/rb/translatable_routes) [![Code Climate](https://codeclimate.com/github/museways/translatable_routes/badges/gpa.svg)](https://codeclimate.com/github/museways/translatable_routes) [![Build Status](https://travis-ci.org/museways/translatable_routes.svg?branch=master)](https://travis-ci.org/museways/translatable_routes) [![Dependency Status](https://gemnasium.com/museways/translatable_routes.svg)](https://gemnasium.com/museways/translatable_routes)
 
 # Translatable Routes
 
