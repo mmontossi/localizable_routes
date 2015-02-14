@@ -8,10 +8,7 @@ module TranslatableRoutes
           helper = :"#{name}_#{type}"
 
           if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR >= 2
-            @module = case type
-              when 'path' then @path_helpers_module
-              when 'url'  then @url_helpers_module
-            end
+            @module = instance_variable_get("@#{type}_helpers_module")
           end
 
           @module.remove_possible_method helper
@@ -22,7 +19,12 @@ module TranslatableRoutes
               send "#{name}_#{suffix}_#{type}", *(args << options)
             end
           end
-          helpers << helper
+
+          if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR >= 2
+            instance_variable_get("@#{type}_helpers") << helper
+          else
+            helpers << helper
+          end
         end
       end
 

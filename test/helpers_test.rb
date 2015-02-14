@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class HelpersTest < ActionView::TestCase
+  include Rails.application.routes.url_helpers
 
   test 'helpers' do
     I18n.available_locales.each do |locale|
