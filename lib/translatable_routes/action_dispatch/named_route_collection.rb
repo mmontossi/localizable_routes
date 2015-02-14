@@ -8,11 +8,13 @@ module TranslatableRoutes
           helper = :"#{name}_#{type}"
 
           if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR >= 2
-            @module = instance_variable_get("@#{type}_helpers_module")
+            target = instance_variable_get("@#{type}_helpers_module")
+          else
+            target = @module
           end
 
-          @module.remove_possible_method helper
-          @module.module_eval do
+          target.remove_possible_method helper
+          target.module_eval do
             define_method helper do |*args|
               options = args.extract_options!
               suffix = (options[:locale] || I18n.locale).to_s.gsub('-', '_').downcase
