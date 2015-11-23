@@ -17,7 +17,7 @@ module TranslatableRoutes
           target.module_eval do
             define_method helper do |*args|
               options = args.extract_options!
-              suffix = (options[:locale] || I18n.locale).to_s.gsub('-', '_').downcase
+              suffix = (options[:locale] || url_options[:locale] || I18n.locale).to_s.gsub('-', '_').downcase
               send "#{name}_#{suffix}_#{type}", *(args << options)
             end
           end

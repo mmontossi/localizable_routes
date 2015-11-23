@@ -35,7 +35,7 @@ module TranslatableRoutes
                   end
                 end
               end
-            else
+            elsif !options[:as].nil?
               options[:as] = "#{options[:as] || action}_#{locale}"
             end
             super i18n_path(action, locale), options
@@ -50,11 +50,14 @@ module TranslatableRoutes
           end
           if @scope[:scope_level_resource]
             helper = name_for_action(options[:as], action)
-          else
+            @set.named_routes.define_i18n_url_helper helper
+          elsif !options[:as].nil?
             helper = "#{options[:as] || action}"
-            helper = "#{@scope[:as]}_#{helper}" if @scope[:as]
+            if @scope[:as]
+              helper.prepend "#{@scope[:as]}_"
+            end
+            @set.named_routes.define_i18n_url_helper helper
           end
-          @set.named_routes.define_i18n_url_helper helper
         else
           super
         end
@@ -71,7 +74,7 @@ module TranslatableRoutes
             if part[0] == ':' or part[0] == '*'
               i18n_path << part
             else
-              i18n_path << I18n.t("routes.#{part}", locale: locale, default: part.gsub(/_/, '-'))
+              i18n_path << I18n.t("routes.#{part.gsub('-', '_')}", locale: locale, default: part.gsub('_', '-'))
             end
           end
           i18n_path.join('/')
