@@ -26,7 +26,8 @@ module TranslatableRoutes
             end
             options[:path] = i18n_path(options[:path], locale)
             options[:constraints] = { locale: locale.to_s }
-            options[:defaults] = { locale: locale.to_s }
+            options[:defaults] ||= {}
+            options[:defaults].merge! { locale: locale.to_s }
             if @scope[:scope_level_resource]
               %w(collection_name member_name).each do |method|
                 @scope[:scope_level_resource].class_eval do
