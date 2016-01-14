@@ -41,6 +41,18 @@ class RoutesTest < ActionDispatch::IntegrationTest
         { controller: 'resources', action: 'edit', locale: locale.to_s, id: '10' },
         "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}"
       )
+      assert_recognizes(
+        { controller: 'nesteds', action: 'index', locale: locale.to_s, resource_id: '10' },
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}"
+      )
+      assert_recognizes(
+        { controller: 'nesteds', action: 'new', locale: locale.to_s, resource_id: '10' },
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}/#{I18n.t('routes.new')}"
+      )
+      assert_recognizes(
+        { controller: 'nesteds', action: 'edit', locale: locale.to_s, resource_id: '10', id: '4' },
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}/4/#{I18n.t('routes.edit')}"
+      )
     end
   end
 

@@ -8,7 +8,9 @@ Dummy::Application.routes.draw do
     end
     get 'simple', to: 'pages#simple', as: :simple
     get 'complex/:p1/:p2', to: 'pages#complex', as: :complex
-    resources :resources
+    resources :resources do
+      resources :nesteds
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -51,7 +53,7 @@ Dummy::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

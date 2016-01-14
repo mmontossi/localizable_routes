@@ -42,6 +42,18 @@ class HelpersTest < ActionView::TestCase
         "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}",
         edit_resource_path(10)
       )
+      assert_equal(
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}",
+        resource_nesteds_path(10)
+      )
+      assert_equal(
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}/#{I18n.t('routes.new')}",
+        new_resource_nested_path(10)
+      )
+      assert_equal(
+        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}/4/#{I18n.t('routes.edit')}",
+        edit_resource_nested_path(10, 4)
+      )
     end
   end
 
