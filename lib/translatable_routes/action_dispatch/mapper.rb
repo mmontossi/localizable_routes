@@ -27,7 +27,7 @@ module TranslatableRoutes
             options[:path] = i18n_path(options[:path], locale)
             (options[:constraints] ||= {}).merge!(locale: locale.to_s)
             (options[:defaults] ||= {}).merge!(locale: locale.to_s)
-            if @scope[:scope_level_resource] && @scope.resource_method_scope?
+            if @scope[:scope_level_resource] && resource_method_scope?
               resource = @scope[:scope_level_resource].dup
               %w(collection_name member_name).each do |method|
                 resource.class_eval do
@@ -41,7 +41,7 @@ module TranslatableRoutes
               options[:as] = "#{options[:as] || action}_#{locale}"
             end
             super i18n_path(action, locale), options
-            if @scope[:scope_level_resource] && @scope.resource_method_scope?
+            if @scope[:scope_level_resource] && resource_method_scope?
               @scope[:scope_level_resource] = original_scope_level_resource
             end
             if @scope[:path]
@@ -50,7 +50,7 @@ module TranslatableRoutes
             @scope[:path_names] = original_path_names
             options = original_options
           end
-          if @scope[:scope_level_resource] && @scope.resource_method_scope?
+          if @scope[:scope_level_resource] && resource_method_scope?
             helper = name_for_action(options[:as], action)
             @set.named_routes.define_i18n_url_helper helper
           else
