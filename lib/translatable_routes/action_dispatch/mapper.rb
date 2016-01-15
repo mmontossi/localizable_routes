@@ -12,7 +12,7 @@ module TranslatableRoutes
       def add_route(action, options)
         if @locales
           @locales.each do |locale|
-            if @scope[:scope_level_resource] && @scope.resource_method_scope?
+            if @scope[:scope_level_resource] && resource_method_scope?
               original_scope_level_resource = @scope[:scope_level_resource].dup
             end
             if @scope[:path]
