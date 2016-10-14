@@ -8,3 +8,5 @@ en:
     simple: "simple"
     resource: "resource"
     resources: "resources"
+    collection: "collection"
+    member: "member"

@@ -1,17 +1,17 @@
-[![Gem Version](https://badge.fury.io/rb/translatable_routes.svg)](http://badge.fury.io/rb/translatable_routes)
-[![Code Climate](https://codeclimate.com/github/mmontossi/translatable_routes/badges/gpa.svg)](https://codeclimate.com/github/mmontossi/translatable_routes)
-[![Build Status](https://travis-ci.org/mmontossi/translatable_routes.svg)](https://travis-ci.org/mmontossi/translatable_routes)
-[![Dependency Status](https://gemnasium.com/mmontossi/translatable_routes.svg)](https://gemnasium.com/mmontossi/translatable_routes)
+[![Gem Version](https://badge.fury.io/rb/localizable_routes.svg)](http://badge.fury.io/rb/localizable_routes)
+[![Code Climate](https://codeclimate.com/github/mmontossi/localizable_routes/badges/gpa.svg)](https://codeclimate.com/github/mmontossi/localizable_routes)
+[![Build Status](https://travis-ci.org/mmontossi/localizable_routes.svg)](https://travis-ci.org/mmontossi/localizable_routes)
+[![Dependency Status](https://gemnasium.com/mmontossi/localizable_routes.svg)](https://gemnasium.com/mmontossi/localizable_routes)
 
-# Translatable Routes
+# Localizable Routes
 
-Minimalistic toolkit to translate routes in rails.
+Minimalistic toolkit to localize routes in rails.
 
 ## Install
 
 Put this line in your Gemfile:
 ```ruby
-gem 'translatable_routes'
+gem 'localizable_routes'
 ```
 
 Then bundle:
@@ -28,7 +28,7 @@ localized do
 end
 ```
 
-Put your translations inside the routes key in your locales yamls:
+Put your localizations inside the routes key in your locales yamls:
 ```yaml
 es:
   routes:
@@ -37,7 +37,7 @@ es:
     about: "nosotros"
 ```
 
-NOTE: There is no need to put the full path, just translate each part individually.
+NOTE: There is no need to put the full path, just localize each part individually.
 
 ## Usage
 

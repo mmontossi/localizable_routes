@@ -2,58 +2,183 @@ require 'test_helper'
 
 class HelpersTest < ActionView::TestCase
   include Rails.application.routes.url_helpers
+  include I18nSupport
 
-  test 'helpers' do
-    I18n.available_locales.each do |locale|
-      I18n.locale = locale
+  test 'methods' do
+    iterate_locales do |locale|
+
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.nested')}",
-        namespace_nested_path
+        "/#{locale}/#{t('routes.namespace')}/#{t('routes.nested')}",
+        param_namespace_nested_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}",
-        namespace_resources_path
+        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}",
+        param_namespace_resources_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}/#{I18n.t('routes.new')}",
-        new_namespace_resource_path
+        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}",
+        new_param_namespace_resource_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.namespace')}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}",
-        edit_namespace_resource_path(10)
+        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}",
+        edit_param_namespace_resource_path(10, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.simple')}",
-        simple_path
+        "/#{locale}/#{t('routes.simple')}",
+        param_simple_path(locale: locale)
       )
       assert_equal(
         "/#{locale}/complex/1/2",
-        complex_path(1, 2)
+        param_complex_path(1, 2, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.resources')}",
-        resources_path
+        "/#{locale}/#{t('routes.resources')}",
+        param_resources_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.resources')}/#{I18n.t('routes.new')}",
-        new_resource_path
+        "/#{locale}/#{t('routes.resources')}/#{t('routes.collection')}",
+        collection_param_resources_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.edit')}",
-        edit_resource_path(10)
+        "/#{locale}/#{t('routes.resources')}/#{t('routes.new')}",
+        new_param_resource_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}",
-        resource_nesteds_path(10)
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.edit')}",
+        edit_param_resource_path(10, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}/#{I18n.t('routes.new')}",
-        new_resource_nested_path(10)
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.member')}",
+        member_param_resource_path(10, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{I18n.t('routes.resources')}/10/#{I18n.t('routes.nesteds')}/4/#{I18n.t('routes.edit')}",
-        edit_resource_nested_path(10, 4)
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}",
+        param_resource_nesteds_path(10, locale: locale)
       )
+      assert_equal(
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}",
+        new_param_resource_nested_path(10, locale: locale)
+      )
+      assert_equal(
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}",
+        edit_param_resource_nested_path(10, 4, locale: locale)
+      )
+
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.nested')}",
+        subdomain_namespace_nested_url(subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.resources')}",
+        subdomain_namespace_resources_url(subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}",
+        new_subdomain_namespace_resource_url(subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}",
+        edit_subdomain_namespace_resource_url(10, subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.simple')}",
+        subdomain_simple_url(subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/complex/1/2",
+        subdomain_complex_url(1, 2, subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}",
+        subdomain_resources_url(subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}/#{t('routes.collection')}",
+        collection_subdomain_resources_url(subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}/#{t('routes.new')}",
+        new_subdomain_resource_url(subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.edit')}",
+        edit_subdomain_resource_url(10, subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.member')}",
+        member_subdomain_resource_url(10, subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nesteds')}",
+        subdomain_resource_nesteds_url(10, subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}",
+        new_subdomain_resource_nested_url(10, subdomain: locale)
+      )
+      assert_equal(
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}",
+        edit_subdomain_resource_nested_url(10, 4, subdomain: locale)
+      )
+
+      domain = "test.#{locale}"
+      assert_equal(
+        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.nested')}",
+        domain_namespace_nested_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.resources')}",
+        domain_namespace_resources_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}",
+        new_domain_namespace_resource_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}",
+        edit_domain_namespace_resource_url(10, domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.simple')}",
+        domain_simple_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/complex/1/2",
+        domain_complex_url(1, 2, domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}",
+        domain_resources_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}/#{t('routes.collection')}",
+        collection_domain_resources_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}/#{t('routes.new')}",
+        new_domain_resource_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.edit')}",
+        edit_domain_resource_url(10, domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.member')}",
+        member_domain_resource_url(10, domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nesteds')}",
+        domain_resource_nesteds_url(10, domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}",
+        new_domain_resource_nested_url(10, domain: domain)
+      )
+      assert_equal(
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}",
+        edit_domain_resource_nested_url(10, 4, domain: domain)
+      )
+
     end
   end
 
