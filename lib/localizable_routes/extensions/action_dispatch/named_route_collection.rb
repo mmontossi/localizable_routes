@@ -7,7 +7,13 @@ module LocalizableRoutes
         def define_localized_url_helper(name, localization)
           %w(path url).each do |type|
             helper = :"#{name}_#{type}"
-            target = instance_variable_get("@#{type}_helpers_module")
+
+            if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR >= 2
+              target = instance_variable_get("@#{type}_helpers_module")
+            else
+              target = @module
+            end
+
             target.remove_possible_method helper
             target.module_eval do
               define_method helper do |*args|
@@ -22,7 +28,12 @@ module LocalizableRoutes
                 send "#{name}_#{locale}_#{type}", *(args << options)
               end
             end
-            instance_variable_get("@#{type}_helpers") << helper
+
+            if Rails::VERSION::MAJOR == 4 && Rails::VERSION::MINOR >= 2
+              instance_variable_get("@#{type}_helpers") << helper
+            else
+              helpers << helper
+            end
           end
         end
 
