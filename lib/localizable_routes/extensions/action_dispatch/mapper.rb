@@ -55,7 +55,7 @@ module LocalizableRoutes
           candidate = super
           if candidate && @locale
             suffixed_candidate = "#{super}_#{@locale}"
-            if !as.nil? || !has_named_route?(suffixed_candidate)
+            if !as.nil? || !@set.named_routes.routes.has_key?(suffixed_candidate.to_sym)
               suffixed_candidate
             end
           else
