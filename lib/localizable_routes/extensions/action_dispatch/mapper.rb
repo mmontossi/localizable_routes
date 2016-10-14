@@ -9,7 +9,7 @@ module LocalizableRoutes
           @localization = @locale = nil
         end
 
-        def localization(options)
+        def localized(options)
           @localization = options
           if options[:strategy] == :param
             scope(':locale') do

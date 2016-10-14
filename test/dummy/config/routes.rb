@@ -19,19 +19,19 @@ Rails.application.routes.draw do
     end
   end
 
-  localization strategy: :param, locales: %i(es en) do
+  localized strategy: :param, locales: %i(es en) do
     scope as: :param do
       concerns :routes
     end
   end
 
-  localization strategy: :subdomain, locales: { 'es' => :es, 'en' => :en } do
+  localized strategy: :subdomain, locales: { 'es' => :es, 'en' => :en } do
     scope as: :subdomain do
       concerns :routes
     end
   end
 
-  localization strategy: :domain, locales: { 'test.es' => :es, 'test.en' => :en } do
+  localized strategy: :domain, locales: { 'test.es' => :es, 'test.en' => :en } do
     scope as: :domain do
       concerns :routes
     end

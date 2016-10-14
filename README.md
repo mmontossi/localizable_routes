@@ -23,15 +23,15 @@ $ bundle
 
 In your config/routes.rb use the localized method to decide wich routes will be localized:
 ```ruby
-localization strategy: :param, locales: %i(es en) do
+localized strategy: :param, locales: %i(es en) do
   get 'page' => 'pages#show', as: :param
 end
 
-localization strategy: :subdomain, locales: { 'uy' => :es, 'us' => :en } do
+localized strategy: :subdomain, locales: { 'uy' => :es, 'us' => :en } do
   get 'page' => 'pages#show', as: :subdomain
 end
 
-localization strategy: :domain, locales: { 'domain.uy' => :es, 'domain.us' => :en } do
+localized strategy: :domain, locales: { 'domain.uy' => :es, 'domain.us' => :en } do
   get 'page' => 'pages#show', as: :domain
 end
 ```
