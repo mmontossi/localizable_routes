@@ -23,8 +23,14 @@ $ bundle
 
 In your config/routes.rb use the localized method to decide wich routes will be localized:
 ```ruby
-localized do
-  get 'about' => 'pages#about'
+localization strategy: :param, locales: %i(es en) do
+  get 'page' => 'pages#show', as: :param
+end
+localization strategy: :subdomain, locales: { 'uy' => :es, 'us' => :en } do
+  get 'page' => 'pages#show', as: :subdomain
+end
+localization strategy: :domain, locales: { 'domain.uy' => :es, 'domain.us' => :en } do
+  get 'page' => 'pages#show', as: :domain
 end
 ```
 
@@ -32,29 +38,18 @@ Put your localizations inside the routes key in your locales yamls:
 ```yaml
 es:
   routes:
-    users: "usuarios"
-    profile: "perfil"
-    about: "nosotros"
+    page: "pagina"
 ```
 
 NOTE: There is no need to put the full path, just localize each part individually.
 
 ## Usage
 
-Helpers will continue working the same but I18n.locale will be use as default locale:
+Helpers will continue working the same but I18n.locale will be use as default locale if strategy is param:
 ```ruby
-about_path # Will output /en/about in case I18n.locale is :en
-```
-
-Here is an example of what you may want to add to your controllers to select the current locale:
-```ruby
-before_action :select_locale
-
-protected
-
-def select_locale
-  I18n.locale = params[:locale]
-end
+param_path # Will output /en/pagina in case I18n.locale is :es for param strategy
+subdomain_url # Will output http://uy.domain.com/pagina if current subdomain is uy
+domain_url # Will output http://domain.uy/pagina if current domain is domain.uy
 ```
 
 ## Credits
