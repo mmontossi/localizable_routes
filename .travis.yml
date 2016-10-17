@@ -6,8 +6,6 @@ before_install:
 script:
   - bundle exec rake test
 env:
-  - RAILS=4.0.0
-  - RAILS=4.1.0
   - RAILS=4.2.0
 rvm:
   - 2.1.0
