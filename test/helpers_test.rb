@@ -1,8 +1,7 @@
 require 'test_helper'
 
 class HelpersTest < ActionView::TestCase
-  include Rails.application.routes.url_helpers
-  include I18nSupport
+  include Rails.application.routes.url_helpers, I18nSupport
 
   test 'methods' do
     iterate_locales do |locale|
@@ -52,15 +51,15 @@ class HelpersTest < ActionView::TestCase
         member_param_resource_path(10, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}",
-        param_resource_nesteds_path(10, locale: locale)
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}",
+        param_resource_nested_index_path(10, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}",
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}",
         new_param_resource_nested_path(10, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}",
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}",
         edit_param_resource_nested_path(10, 4, locale: locale)
       )
 
@@ -109,15 +108,15 @@ class HelpersTest < ActionView::TestCase
         member_subdomain_resource_url(10, subdomain: locale)
       )
       assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nesteds')}",
-        subdomain_resource_nesteds_url(10, subdomain: locale)
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nested')}",
+        subdomain_resource_nested_index_url(10, subdomain: locale)
       )
       assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}",
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}",
         new_subdomain_resource_nested_url(10, subdomain: locale)
       )
       assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}",
+        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}",
         edit_subdomain_resource_nested_url(10, 4, subdomain: locale)
       )
 
@@ -167,15 +166,15 @@ class HelpersTest < ActionView::TestCase
         member_domain_resource_url(10, domain: domain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nesteds')}",
-        domain_resource_nesteds_url(10, domain: domain)
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nested')}",
+        domain_resource_nested_index_url(10, domain: domain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}",
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}",
         new_domain_resource_nested_url(10, domain: domain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}",
+        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}",
         edit_domain_resource_nested_url(10, 4, domain: domain)
       )
 

@@ -4,7 +4,7 @@ es:
     edit: "editar"
     namespace: "nombre-de-espacio"
     nested: "anidado"
-    nesteds: "anidados"
+    nested_resources: "recursos-anidados"
     simple: "simple"
     resource: "recurso"
     resources: "recursos"

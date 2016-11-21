@@ -2,12 +2,12 @@ Rails.application.routes.draw do
 
   concern :routes do
     root to: 'pages#index'
+    get 'simple', to: 'pages#simple', as: :simple
+    get 'complex/:p1/:p2', to: 'pages#complex', as: :complex
     namespace :namespace do
       get 'nested', to: 'pages#nested', as: :nested
       resources :resources
     end
-    get 'simple', to: 'pages#simple', as: :simple
-    get 'complex/:p1/:p2', to: 'pages#complex', as: :complex
     resources :resources do
       member do
         get 'member'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
       collection do
         get 'collection'
       end
-      resources :nesteds
+      resources :nested
     end
   end
 

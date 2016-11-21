@@ -1,4 +1,5 @@
 module I18nSupport
+  extend ActiveSupport::Concern
 
   def iterate_locales
     I18n.available_locales.each do |locale|

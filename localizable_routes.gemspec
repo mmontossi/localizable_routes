@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = 'localizable_routes'
   s.version     = LocalizableRoutes::VERSION
   s.authors     = ['mmontossi']
-  s.email       = ['mmontossi@buyin.io']
+  s.email       = ['mmontossi@gmail.com']
   s.homepage    = 'https://github.com/mmontossi/localizable_routes'
   s.summary     = 'Localizable routes for rails.'
   s.description = 'Minimalistic toolkit to localize routes in rails.'

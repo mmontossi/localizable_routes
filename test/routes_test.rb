@@ -51,16 +51,16 @@ class RoutesTest < ActionDispatch::IntegrationTest
         "/#{locale}/#{t('routes.resources')}/10/#{t('routes.member')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'index', resource_id: '10', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}"
+        { controller: 'nested', action: 'index', resource_id: '10', locale: locale.to_s },
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'new', resource_id: '10', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}"
+        { controller: 'nested', action: 'new', resource_id: '10', locale: locale.to_s },
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'edit', resource_id: '10', id: '4', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}"
+        { controller: 'nested', action: 'edit', resource_id: '10', id: '4', locale: locale.to_s },
+        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}"
       )
 
       host = "#{locale}.test.host"
@@ -109,16 +109,16 @@ class RoutesTest < ActionDispatch::IntegrationTest
         "http://#{host}/#{t('routes.resources')}/10/#{t('routes.member')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'index', resource_id: '10', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nesteds')}"
+        { controller: 'nested', action: 'index', resource_id: '10', subdomain: locale.to_s },
+        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'new', resource_id: '10', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}"
+        { controller: 'nested', action: 'new', resource_id: '10', subdomain: locale.to_s },
+        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'edit', resource_id: '10', id: '4', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}"
+        { controller: 'nested', action: 'edit', resource_id: '10', id: '4', subdomain: locale.to_s },
+        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}"
       )
 
       host = domain = "test.#{locale}"
@@ -167,16 +167,16 @@ class RoutesTest < ActionDispatch::IntegrationTest
         "http://#{host}/#{t('routes.resources')}/10/#{t('routes.member')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'index', resource_id: '10', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nesteds')}"
+        { controller: 'nested', action: 'index', resource_id: '10', domain: domain },
+        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'new', resource_id: '10', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/#{t('routes.new')}"
+        { controller: 'nested', action: 'new', resource_id: '10', domain: domain },
+        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'nesteds', action: 'edit', resource_id: '10', id: '4', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nesteds')}/4/#{t('routes.edit')}"
+        { controller: 'nested', action: 'edit', resource_id: '10', id: '4', domain: domain },
+        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}"
       )
 
     end
