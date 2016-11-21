@@ -4,7 +4,6 @@ en:
     edit: "edit"
     namespace: "namespace"
     nested: "nested"
-    nested_resources: "nested-resources"
     simple: "simple"
     resource: "resource"
     resources: "resources"
