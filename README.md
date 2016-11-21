@@ -7,6 +7,14 @@
 
 Minimalistic toolkit to localize routes in rails.
 
+## Why
+
+I did this gem to:
+
+- Being able to use different configurations on each set of routes.
+- Having most common strategies available out of the box.
+- Prevent bugs using not invasive code.
+
 ## Install
 
 Put this line in your Gemfile:
