@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ['mmontossi@gmail.com']
   s.homepage    = 'https://github.com/mmontossi/localizable_routes'
   s.summary     = 'Localizable routes for rails.'
-  s.description = 'Minimalistic toolkit to localize routes in rails.'
+  s.description = 'Flexible toolkit to localize routes in rails.'
   s.license     = 'MIT'
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']

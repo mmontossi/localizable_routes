@@ -27,7 +27,9 @@ Then bundle:
 $ bundle
 ```
 
-## Configuration
+## Usage
+
+### Definitions
 
 In your config/routes.rb use the localized method to decide wich routes will be localized:
 ```ruby
@@ -44,6 +46,8 @@ localized strategy: :domain, locales: { 'domain.uy' => :es, 'domain.us' => :en }
 end
 ```
 
+### Localization
+
 Put your localizations inside the routes key in your locales yamls:
 ```yaml
 es:
@@ -53,9 +57,9 @@ es:
 
 NOTE: There is no need to put the full path, just localize each part individually.
 
-## Usage
+### Urls
 
-Helpers will continue working the same:
+Url helpers will continue working the same:
 ```ruby
 param_path # Will output /en/pagina in case I18n.locale is :es for param strategy
 
