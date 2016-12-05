@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RoutesTest < ActionDispatch::IntegrationTest
+class RouteTest < ActionDispatch::IntegrationTest
   include I18nSupport
 
   test 'params' do

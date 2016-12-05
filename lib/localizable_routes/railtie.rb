@@ -1,7 +1,7 @@
 module LocalizableRoutes
   class Railtie < Rails::Railtie
 
-    initializer 'localizable_routes' do
+    initializer 'localizable_routes.extensions' do
       ::ActionDispatch::Routing::RouteSet::NamedRouteCollection.include(
         LocalizableRoutes::Extensions::ActionDispatch::NamedRouteCollection
       )

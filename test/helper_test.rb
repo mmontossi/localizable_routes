@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HelpersTest < ActionView::TestCase
+class HelperTest < ActionView::TestCase
   include Rails.application.routes.url_helpers, I18nSupport
 
   test 'methods' do
