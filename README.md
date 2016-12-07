@@ -61,20 +61,26 @@ NOTE: There is no need to put the full path, just localize each part individuall
 
 Url helpers will continue working the same:
 ```ruby
-param_path # Will output /en/pagina in case I18n.locale is :es for param strategy
+param_path
+# => /en/pagina in case I18n.locale is :es for param strategy
 
-subdomain_url # Will output http://uy.domain.com/pagina if current subdomain is uy
+subdomain_url
+# => http://uy.domain.com/pagina if current subdomain is uy
 
-domain_url # Will output http://domain.uy/pagina if current domain is domain.uy
+domain_url
+# => http://domain.uy/pagina if current domain is domain.uy
 ```
 
 And you can change the locale by passing the corresponding parameter:
 ```ruby
-param_path locale: :en # Will output /en/page
+param_path locale: :en
+# => /en/page
 
-subdomain_url sudomain: 'us' # Will output http://us.domain.com/page
+subdomain_url sudomain: 'us'
+# => http://us.domain.com/page
 
-domain_url domain: 'domain.us' # Will output http://domain.us/page
+domain_url domain: 'domain.us'
+# => http://domain.us/page
 ```
 
 ## Credits
