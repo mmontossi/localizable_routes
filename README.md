@@ -62,7 +62,7 @@ NOTE: There is no need to put the full path, just localize each part individuall
 Url helpers will continue working the same:
 ```ruby
 param_path
-# => /en/pagina in case I18n.locale is :es for param strategy
+# => /en/pagina if I18n.locale is :es
 
 subdomain_url
 # => http://uy.domain.com/pagina if current subdomain is uy
