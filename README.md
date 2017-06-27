@@ -37,11 +37,11 @@ localized strategy: :param, locales: %i(es en) do
   get 'page' => 'pages#show', as: :param
 end
 
-localized strategy: :subdomain, locales: { 'uy' => :es, 'us' => :en } do
+localized strategy: :subdomain, locales: { 'es' => :es, 'www' => :en } do
   get 'page' => 'pages#show', as: :subdomain
 end
 
-localized strategy: :domain, locales: { 'domain.uy' => :es, 'domain.us' => :en } do
+localized strategy: :domain, locales: { 'example.es' => :es, 'example.com' => :en } do
   get 'page' => 'pages#show', as: :domain
 end
 ```
@@ -65,10 +65,10 @@ param_path
 # => /en/pagina if I18n.locale is :es
 
 subdomain_url
-# => http://uy.domain.com/pagina if current subdomain is uy
+# => http://es.example.com/pagina if current subdomain is es
 
 domain_url
-# => http://domain.uy/pagina if current domain is domain.uy
+# => http://example.es/pagina if current domain is example.es
 ```
 
 And you can change the locale by passing the corresponding parameter:
@@ -76,11 +76,11 @@ And you can change the locale by passing the corresponding parameter:
 param_path locale: :en
 # => /en/page
 
-subdomain_url sudomain: 'us'
-# => http://us.domain.com/page
+subdomain_url sudomain: 'es'
+# => http://es.example.com/pagina
 
-domain_url domain: 'domain.us'
-# => http://domain.us/page
+domain_url domain: 'example.com'
+# => http://example.com/page
 ```
 
 ## Contributing
