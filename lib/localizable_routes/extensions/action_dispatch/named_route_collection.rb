@@ -4,7 +4,7 @@ module LocalizableRoutes
       module NamedRouteCollection
         extend ActiveSupport::Concern
 
-        def define_localized_url_helper(name, localization)
+        def add_localized_url_helper(name, localization)
           %w(path url).each do |type|
             helper = :"#{name}_#{type}"
             target = instance_variable_get("@#{type}_helpers_module")

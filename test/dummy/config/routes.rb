@@ -2,36 +2,33 @@ Rails.application.routes.draw do
 
   concern :routes do
     root to: 'pages#index'
-    get 'simple', to: 'pages#simple', as: :simple
-    get 'complex/:p1/:p2', to: 'pages#complex', as: :complex
-    namespace :namespace do
-      get 'nested', to: 'pages#nested', as: :nested
-      resources :resources
+    get 'about', to: 'pages#about'
+    namespace :admin do
+      root to: 'pages#index', as: ''
+      resources :users
     end
-    resources :resources do
+    resources :shops do
       member do
-        get 'member'
+        get 'info'
       end
       collection do
-        get 'collection'
+        get 'search'
       end
-      resources :nested
+      resources :products
     end
   end
 
   localized strategy: :param, locales: %i(es en) do
-    scope as: :param do
-      concerns :routes
-    end
+    concerns :routes
   end
 
-  localized strategy: :subdomain, locales: { 'es' => :es, 'en' => :en } do
+  localized strategy: :subdomain, locales: { 'es' => :es, 'www' => :en } do
     scope as: :subdomain do
       concerns :routes
     end
   end
 
-  localized strategy: :domain, locales: { 'test.es' => :es, 'test.en' => :en } do
+  localized strategy: :domain, locales: { 'example.es' => :es, 'example.com' => :en } do
     scope as: :domain do
       concerns :routes
     end

@@ -1,3 +1,0 @@
-test:
-  adapter: <%= 'jdbc' if RUBY_ENGINE == 'jruby' %>postgresql
-  database: travis

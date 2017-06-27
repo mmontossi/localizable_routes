@@ -1,181 +1,184 @@
 require 'test_helper'
 
-class HelperTest < ActionView::TestCase
-  include Rails.application.routes.url_helpers, I18nSupport
+class HelperTest < ActionDispatch::IntegrationTest
+  include I18nSupport
 
   test 'methods' do
     iterate_locales do |locale|
 
       assert_equal(
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.nested')}",
-        param_namespace_nested_path(locale: locale)
+        "/#{locale}",
+        root_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}",
-        param_namespace_resources_path(locale: locale)
+        "/#{locale}/#{t('routes.about')}",
+        about_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}",
-        new_param_namespace_resource_path(locale: locale)
+        "/#{locale}/#{t('routes.admin')}",
+        admin_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}",
-        edit_param_namespace_resource_path(10, locale: locale)
+        "/#{locale}/#{t('routes.admin')}/#{t('routes.users')}",
+        admin_users_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.simple')}",
-        param_simple_path(locale: locale)
+        "/#{locale}/#{t('routes.admin')}/#{t('routes.users')}/#{t('routes.new')}",
+        new_admin_user_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/complex/1/2",
-        param_complex_path(1, 2, locale: locale)
+        "/#{locale}/#{t('routes.admin')}/#{t('routes.users')}/1/#{t('routes.edit')}",
+        edit_admin_user_path(1, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}",
-        param_resources_path(locale: locale)
+        "/#{locale}/#{t('routes.shops')}",
+        shops_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/#{t('routes.collection')}",
-        collection_param_resources_path(locale: locale)
+        "/#{locale}/#{t('routes.shops')}/#{t('routes.search')}",
+        search_shops_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/#{t('routes.new')}",
-        new_param_resource_path(locale: locale)
+        "/#{locale}/#{t('routes.shops')}/#{t('routes.new')}",
+        new_shop_path(locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.edit')}",
-        edit_param_resource_path(10, locale: locale)
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.edit')}",
+        edit_shop_path(1, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.member')}",
-        member_param_resource_path(10, locale: locale)
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.info')}",
+        info_shop_path(1, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}",
-        param_resource_nested_index_path(10, locale: locale)
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.products')}",
+        shop_products_path(1, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}",
-        new_param_resource_nested_path(10, locale: locale)
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.products')}/#{t('routes.new')}",
+        new_shop_product_path(1, locale: locale)
       )
       assert_equal(
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}",
-        edit_param_resource_nested_path(10, 4, locale: locale)
-      )
-
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.nested')}",
-        subdomain_namespace_nested_url(subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.resources')}",
-        subdomain_namespace_resources_url(subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}",
-        new_subdomain_namespace_resource_url(subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}",
-        edit_subdomain_namespace_resource_url(10, subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.simple')}",
-        subdomain_simple_url(subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/complex/1/2",
-        subdomain_complex_url(1, 2, subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}",
-        subdomain_resources_url(subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/#{t('routes.collection')}",
-        collection_subdomain_resources_url(subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/#{t('routes.new')}",
-        new_subdomain_resource_url(subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.edit')}",
-        edit_subdomain_resource_url(10, subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.member')}",
-        member_subdomain_resource_url(10, subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nested')}",
-        subdomain_resource_nested_index_url(10, subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}",
-        new_subdomain_resource_nested_url(10, subdomain: locale)
-      )
-      assert_equal(
-        "http://#{locale}.test.host/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}",
-        edit_subdomain_resource_nested_url(10, 4, subdomain: locale)
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.products')}/2/#{t('routes.edit')}",
+        edit_shop_product_path(1, 2, locale: locale)
       )
 
-      domain = "test.#{locale}"
+      subdomain = (locale == :en ? 'www' : locale.to_s)
+      host = "#{subdomain}.example.com"
       assert_equal(
-        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.nested')}",
-        domain_namespace_nested_url(domain: domain)
+        "http://#{host}/",
+        subdomain_root_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.resources')}",
-        domain_namespace_resources_url(domain: domain)
+        "http://#{host}/#{t('routes.about')}",
+        subdomain_about_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}",
-        new_domain_namespace_resource_url(domain: domain)
+        "http://#{host}/#{t('routes.admin')}",
+        subdomain_admin_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}",
-        edit_domain_namespace_resource_url(10, domain: domain)
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}",
+        subdomain_admin_users_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.simple')}",
-        domain_simple_url(domain: domain)
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/#{t('routes.new')}",
+        new_subdomain_admin_user_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/complex/1/2",
-        domain_complex_url(1, 2, domain: domain)
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/1/#{t('routes.edit')}",
+        edit_subdomain_admin_user_url(1, subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}",
-        domain_resources_url(domain: domain)
+        "http://#{host}/#{t('routes.shops')}",
+        subdomain_shops_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/#{t('routes.collection')}",
-        collection_domain_resources_url(domain: domain)
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.search')}",
+        search_subdomain_shops_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/#{t('routes.new')}",
-        new_domain_resource_url(domain: domain)
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.new')}",
+        new_subdomain_shop_url(subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.edit')}",
-        edit_domain_resource_url(10, domain: domain)
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.edit')}",
+        edit_subdomain_shop_url(1, subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.member')}",
-        member_domain_resource_url(10, domain: domain)
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.info')}",
+        info_subdomain_shop_url(1, subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nested')}",
-        domain_resource_nested_index_url(10, domain: domain)
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}",
+        subdomain_shop_products_url(1, subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}",
-        new_domain_resource_nested_url(10, domain: domain)
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/#{t('routes.new')}",
+        new_subdomain_shop_product_url(1, subdomain: subdomain)
       )
       assert_equal(
-        "http://#{domain}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}",
-        edit_domain_resource_nested_url(10, 4, domain: domain)
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/2/#{t('routes.edit')}",
+        edit_subdomain_shop_product_url(1, 2, subdomain: subdomain)
+      )
+
+      host = domain = "example.#{locale == :en ? 'com' : locale}"
+      host = "www.#{domain}"
+      assert_equal(
+        "http://#{host}/",
+        domain_root_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.about')}",
+        domain_about_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.admin')}",
+        domain_admin_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}",
+        domain_admin_users_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/#{t('routes.new')}",
+        new_domain_admin_user_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/1/#{t('routes.edit')}",
+        edit_domain_admin_user_url(1, domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}",
+        domain_shops_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.search')}",
+        search_domain_shops_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.new')}",
+        new_domain_shop_url(domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.edit')}",
+        edit_domain_shop_url(1, domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.info')}",
+        info_domain_shop_url(1, domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}",
+        domain_shop_products_url(1, domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/#{t('routes.new')}",
+        new_domain_shop_product_url(1, domain: domain)
+      )
+      assert_equal(
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/2/#{t('routes.edit')}",
+        edit_domain_shop_product_url(1, 2, domain: domain)
       )
 
     end

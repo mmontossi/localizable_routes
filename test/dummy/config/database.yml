@@ -3,8 +3,8 @@ default: &default
 
 development:
   <<: *default
-  database: gem_development
+  database: localizable_routes_development
 
 test:
   <<: *default
-  database: gem_test
+  database: localizable_routes_test

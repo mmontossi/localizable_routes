@@ -21,30 +21,26 @@ module LocalizableRoutes
           @localization = nil
         end
 
-        def add_route(action, options)
+        def add_route(action, controller, options, _path, to, via, formatted, anchor, options_constraints)
           if @localization
+            strategy = @localization[:strategy]
             @localization[:locales].each do |locale|
               localized_options = options.dup
-              localized_options[:constraints] ||= {}
-              localized_options[:defaults] ||= {}
-              strategy = @localization[:strategy]
+              localized_options_constraints = options_constraints.dup
               if strategy == :param
                 @locale = locale
-                localized_options[:constraints][:locale] = locale
-                localized_options[:defaults][:locale] = locale
+                localized_options[:locale] = locale
+                localized_options_constraints[:locale] = locale
               else
                 @locale = locale.second
-                localized_options[:constraints][strategy] = locale.first
-                localized_options[:defaults][strategy] = locale.first
+                localized_options[strategy] = locale.first
+                localized_options_constraints[strategy] = locale.first
               end
-              super action, localized_options
+              super action, controller, localized_options, _path, to, via, formatted, anchor, localized_options_constraints
             end
             @locale = nil
             if options.fetch(:as, true)
-              @set.named_routes.define_localized_url_helper(
-                name_for_action(options[:as], action),
-                @localization
-              )
+              @set.named_routes.add_localized_url_helper name_for_action(options[:as], action), @localization
             end
           else
             super
@@ -55,7 +51,7 @@ module LocalizableRoutes
           candidate = super
           if candidate && @locale
             suffixed_candidate = "#{super}_#{@locale}"
-            if !as.nil? || !@set.named_routes.routes.has_key?(suffixed_candidate.to_sym)
+            unless @set.named_routes.key?(suffixed_candidate)
               suffixed_candidate
             end
           else

@@ -7,176 +7,177 @@ class RouteTest < ActionDispatch::IntegrationTest
     iterate_locales do |locale|
 
       assert_recognizes(
-        { controller: 'namespace/pages', action: 'nested', locale: locale.to_s },
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.nested')}"
+        { controller: 'pages', action: 'index', locale: locale.to_s },
+        "/#{locale}"
       )
       assert_recognizes(
-        { controller: 'namespace/resources', action: 'index', locale: locale.to_s },
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}"
+        { controller: 'pages', action: 'about', locale: locale.to_s },
+        "/#{locale}/#{t('routes.about')}"
       )
       assert_recognizes(
-        { controller: 'namespace/resources', action: 'new', locale: locale.to_s },
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}"
+        { controller: 'admin/pages', action: 'index', locale: locale.to_s },
+        "/#{locale}/#{t('routes.admin')}"
       )
       assert_recognizes(
-        { controller: 'namespace/resources', action: 'edit', id: '10', locale: locale.to_s },
-        "/#{locale}/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}"
+        { controller: 'admin/users', action: 'index', locale: locale.to_s },
+        "/#{locale}/#{t('routes.admin')}/#{t('routes.users')}"
       )
       assert_recognizes(
-        { controller: 'pages', action: 'simple', locale: locale.to_s },
-        "/#{locale}/#{t('routes.simple')}"
+        { controller: 'admin/users', action: 'new', locale: locale.to_s },
+        "/#{locale}/#{t('routes.admin')}/#{t('routes.users')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'pages', action: 'complex', p1: '1', p2: '2', locale: locale.to_s },
-        "/#{locale}/complex/1/2"
+        { controller: 'admin/users', action: 'edit', id: '1', locale: locale.to_s },
+        "/#{locale}/#{t('routes.admin')}/#{t('routes.users')}/1/#{t('routes.edit')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'index', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}"
+        { controller: 'shops', action: 'index', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'collection', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/#{t('routes.collection')}"
+        { controller: 'shops', action: 'search', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}/#{t('routes.search')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'new', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/#{t('routes.new')}"
+        { controller: 'shops', action: 'new', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'edit', id: '10', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.edit')}"
+        { controller: 'shops', action: 'edit', id: '1', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.edit')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'member', id: '10', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.member')}"
+        { controller: 'shops', action: 'info', id: '1', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.info')}"
       )
       assert_recognizes(
-        { controller: 'nested', action: 'index', resource_id: '10', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}"
+        { controller: 'products', action: 'index', shop_id: '1', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.products')}"
       )
       assert_recognizes(
-        { controller: 'nested', action: 'new', resource_id: '10', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}"
+        { controller: 'products', action: 'new', shop_id: '1', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.products')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'nested', action: 'edit', resource_id: '10', id: '4', locale: locale.to_s },
-        "/#{locale}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}"
-      )
-
-      host = "#{locale}.test.host"
-      assert_recognizes(
-        { controller: 'namespace/pages', action: 'nested', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.nested')}"
-      )
-      assert_recognizes(
-        { controller: 'namespace/resources', action: 'index', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.resources')}"
-      )
-      assert_recognizes(
-        { controller: 'namespace/resources', action: 'new', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}"
-      )
-      assert_recognizes(
-        { controller: 'namespace/resources', action: 'edit', id: '10', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}"
-      )
-      assert_recognizes(
-        { controller: 'pages', action: 'simple', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.simple')}"
-      )
-      assert_recognizes(
-        { controller: 'pages', action: 'complex', p1: '1', p2: '2', subdomain: locale.to_s },
-        "http://#{host}/complex/1/2"
-      )
-      assert_recognizes(
-        { controller: 'resources', action: 'index', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}"
-      )
-      assert_recognizes(
-        { controller: 'resources', action: 'collection', subdomain: locale.to_s},
-        "http://#{host}/#{t('routes.resources')}/#{t('routes.collection')}"
-      )
-      assert_recognizes(
-        { controller: 'resources', action: 'new', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/#{t('routes.new')}"
-      )
-      assert_recognizes(
-        { controller: 'resources', action: 'edit', id: '10', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.edit')}"
-      )
-      assert_recognizes(
-        { controller: 'resources', action: 'member', id: '10', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.member')}"
-      )
-      assert_recognizes(
-        { controller: 'nested', action: 'index', resource_id: '10', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}"
-      )
-      assert_recognizes(
-        { controller: 'nested', action: 'new', resource_id: '10', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}"
-      )
-      assert_recognizes(
-        { controller: 'nested', action: 'edit', resource_id: '10', id: '4', subdomain: locale.to_s },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}"
+        { controller: 'products', action: 'edit', shop_id: '1', id: '2', locale: locale.to_s },
+        "/#{locale}/#{t('routes.shops')}/1/#{t('routes.products')}/2/#{t('routes.edit')}"
       )
 
-      host = domain = "test.#{locale}"
+      subdomain = (locale == :en ? 'www' : locale.to_s)
+      host = "#{subdomain}.example.com"
       assert_recognizes(
-        { controller: 'namespace/pages', action: 'nested', domain: domain },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.nested')}"
+        { controller: 'pages', action: 'index', subdomain: subdomain },
+        "http://#{host}"
       )
       assert_recognizes(
-        { controller: 'namespace/resources', action: 'index', domain: domain },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.resources')}"
+        { controller: 'pages', action: 'about', subdomain: subdomain },
+        "http://#{host}/#{t('routes.about')}"
       )
       assert_recognizes(
-        { controller: 'namespace/resources', action: 'new', domain: domain },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.resources')}/#{t('routes.new')}"
+        { controller: 'admin/pages', action: 'index', subdomain: subdomain },
+        "http://#{host}/#{t('routes.admin')}"
       )
       assert_recognizes(
-        { controller: 'namespace/resources', action: 'edit', id: '10', domain: domain },
-        "http://#{host}/#{t('routes.namespace')}/#{t('routes.resources')}/10/#{t('routes.edit')}"
+        { controller: 'admin/users', action: 'index', subdomain: subdomain },
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}"
       )
       assert_recognizes(
-        { controller: 'pages', action: 'simple', domain: domain },
-        "http://#{host}/#{t('routes.simple')}"
+        { controller: 'admin/users', action: 'new', subdomain: subdomain },
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'pages', action: 'complex', p1: '1', p2: '2', domain: domain },
-        "http://#{host}/complex/1/2"
+        { controller: 'admin/users', action: 'edit', id: '1', subdomain: subdomain },
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/1/#{t('routes.edit')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'index', domain: domain },
-        "http://#{host}/#{t('routes.resources')}"
+        { controller: 'shops', action: 'index', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'collection', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/#{t('routes.collection')}"
+        { controller: 'shops', action: 'search', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.search')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'new', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/#{t('routes.new')}"
+        { controller: 'shops', action: 'new', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'edit', id: '10', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.edit')}"
+        { controller: 'shops', action: 'edit', id: '1', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.edit')}"
       )
       assert_recognizes(
-        { controller: 'resources', action: 'member', id: '10', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.member')}"
+        { controller: 'shops', action: 'info', id: '1', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.info')}"
       )
       assert_recognizes(
-        { controller: 'nested', action: 'index', resource_id: '10', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}"
+        { controller: 'products', action: 'index', shop_id: '1', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}"
       )
       assert_recognizes(
-        { controller: 'nested', action: 'new', resource_id: '10', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/#{t('routes.new')}"
+        { controller: 'products', action: 'new', shop_id: '1', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/#{t('routes.new')}"
       )
       assert_recognizes(
-        { controller: 'nested', action: 'edit', resource_id: '10', id: '4', domain: domain },
-        "http://#{host}/#{t('routes.resources')}/10/#{t('routes.nested')}/4/#{t('routes.edit')}"
+        { controller: 'products', action: 'edit', shop_id: '1', id: '2', subdomain: subdomain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/2/#{t('routes.edit')}"
+      )
+
+      host = domain = "example.#{locale == :en ? 'com' : locale}"
+      assert_recognizes(
+        { controller: 'pages', action: 'index', domain: domain },
+        "http://#{host}/"
+      )
+      assert_recognizes(
+        { controller: 'pages', action: 'about', domain: domain },
+        "http://#{host}/#{t('routes.about')}"
+      )
+      assert_recognizes(
+        { controller: 'admin/pages', action: 'index', domain: domain },
+        "http://#{host}/#{t('routes.admin')}"
+      )
+      assert_recognizes(
+        { controller: 'admin/users', action: 'index', domain: domain },
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}"
+      )
+      assert_recognizes(
+        { controller: 'admin/users', action: 'new', domain: domain },
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/#{t('routes.new')}"
+      )
+      assert_recognizes(
+        { controller: 'admin/users', action: 'edit', id: '1', domain: domain },
+        "http://#{host}/#{t('routes.admin')}/#{t('routes.users')}/1/#{t('routes.edit')}"
+      )
+      assert_recognizes(
+        { controller: 'shops', action: 'index', domain: domain },
+        "http://#{host}/#{t('routes.shops')}"
+      )
+      assert_recognizes(
+        { controller: 'shops', action: 'search', domain: domain },
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.search')}"
+      )
+      assert_recognizes(
+        { controller: 'shops', action: 'new', domain: domain },
+        "http://#{host}/#{t('routes.shops')}/#{t('routes.new')}"
+      )
+      assert_recognizes(
+        { controller: 'shops', action: 'edit', id: '1', domain: domain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.edit')}"
+      )
+      assert_recognizes(
+        { controller: 'shops', action: 'info', id: '1', domain: domain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.info')}"
+      )
+      assert_recognizes(
+        { controller: 'products', action: 'index', shop_id: '1', domain: domain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}"
+      )
+      assert_recognizes(
+        { controller: 'products', action: 'new', shop_id: '1', domain: domain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/#{t('routes.new')}"
+      )
+      assert_recognizes(
+        { controller: 'products', action: 'edit', shop_id: '1', id: '2', domain: domain },
+        "http://#{host}/#{t('routes.shops')}/1/#{t('routes.products')}/2/#{t('routes.edit')}"
       )
 
     end

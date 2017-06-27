@@ -1,5 +1,5 @@
 module LocalizableRoutes
 
-  VERSION = '4.0.0.1'
+  VERSION = '5.1.0'
 
 end
