@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
 
 gem 'rails', ENV['RAILS']
-gem 'minitest', '~> 5.10.1'
+gem 'minitest', '5.10.1'
 gem 'pg', '~> 0.21'
