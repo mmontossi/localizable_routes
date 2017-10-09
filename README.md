@@ -1,7 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/localizable_routes.svg)](http://badge.fury.io/rb/localizable_routes)
-[![Code Climate](https://codeclimate.com/github/mmontossi/localizable_routes/badges/gpa.svg)](https://codeclimate.com/github/mmontossi/localizable_routes)
-[![Build Status](https://travis-ci.org/mmontossi/localizable_routes.svg)](https://travis-ci.org/mmontossi/localizable_routes)
-[![Dependency Status](https://gemnasium.com/mmontossi/localizable_routes.svg)](https://gemnasium.com/mmontossi/localizable_routes)
+[![Code Climate](https://codeclimate.com/github/museways/localizable_routes/badges/gpa.svg)](https://codeclimate.com/github/museways/localizable_routes)
+[![Build Status](https://travis-ci.org/museways/localizable_routes.svg)](https://travis-ci.org/museways/localizable_routes)
+[![Dependency Status](https://gemnasium.com/museways/localizable_routes.svg)](https://gemnasium.com/museways/localizable_routes)
 
 # Localizable Routes
 
@@ -91,7 +91,7 @@ I will mainly ensure compatibility to Rails, AWS, PostgreSQL, Redis, Elasticsear
 
 ## Credits
 
-This gem is maintained and funded by [mmontossi](https://github.com/mmontossi).
+This gem is maintained and funded by [museways](https://github.com/museways).
 
 ## License
 

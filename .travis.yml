@@ -4,14 +4,14 @@ before_install:
   - rm Gemfile.lock
   - mv Gemfile.travis Gemfile
 script:
-  - cd test/dummy && bundle exec rake db:create db:migrate
-  - cd ../.. && bundle exec rake test
+  - cd test/dummy && bin/rails db:create db:migrate
+  - cd ../.. && bin/test
 env:
   - RAILS=5.1
 rvm:
   - 2.2.2
   - 2.3.0
-  - 2.4.0
+  - 2.4.2
 matrix:
   fast_finish: true
 services:

@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.name        = 'localizable_routes'
   s.version     = LocalizableRoutes::VERSION
   s.authors     = ['mmontossi']
-  s.email       = ['mmontossi@museways.com']
-  s.homepage    = 'https://github.com/mmontossi/localizable_routes'
+  s.email       = ['hi@museways.com']
+  s.homepage    = 'https://github.com/museways/localizable_routes'
   s.summary     = 'Localizable routes for rails.'
   s.description = 'Flexible toolkit to localize routes in rails.'
   s.license     = 'MIT'
