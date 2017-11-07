@@ -14,20 +14,12 @@ module LocalizableRoutes
                 options = args.extract_options!
                 strategy = localization[:strategy]
                 if strategy == :param
-                  locale = (
-                    options[:locale] ||
-                    url_options.try(:fetch, :locale, nil) ||
-                    I18n.locale
-                  )
+                  locale = options[:locale]
                 else
-                  key = (
-                    options[strategy] ||
-                    url_options.try(:fetch, strategy, nil) ||
-                    try(:request).try(strategy)
-                  )
+                  key = options[strategy]
                   locale = localization[:locales][key.to_s]
                 end
-                send "#{name}_#{locale}_#{type}", *(args << options)
+                send "#{name}_#{locale || I18n.locale}_#{type}", *(args << options)
               end
             end
             instance_variable_get("@#{type}_helpers") << helper
